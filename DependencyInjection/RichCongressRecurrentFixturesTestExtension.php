@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\TemplateBundle\DependencyInjection;
+namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection;
 
 use RichCongress\BundleToolbox\Configuration\AbstractExtension;
+use RichCongress\RecurrentFixturesTestBundle\DataFixture\DataFixtureInterface;
+use RichCongress\RecurrentFixturesTestBundle\DependencyInjection\Compiler\DataFixturesPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -12,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class RichCongressUnitExtension extends AbstractExtension
+class RichCongressRecurrentFixturesTestExtension extends AbstractExtension
 {
     /**
      * @param array            $configs
@@ -29,6 +31,8 @@ class RichCongressUnitExtension extends AbstractExtension
         );
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources'));
-        $loader->load('services.yml');
+        $loader->load('services.xml');
+
+        $container->registerForAutoconfiguration(DataFixtureInterface::class)->addTag(DataFixturesPass::DATA_FIXTURE_TAG);
     }
 }

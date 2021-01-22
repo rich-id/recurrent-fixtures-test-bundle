@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    RichCongress\RecurrentFixturesTestBundle\Tests\Resources\:
+        resource: '../'
+        exclude: '../{config,bin}'

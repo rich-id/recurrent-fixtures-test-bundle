@@ -5,7 +5,9 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults autowire="true" autoconfigure="true" public="false"/>
-        <!-- Your Symfony Services -->
+        <defaults autowire="true" autoconfigure="true" public="false" />
+
+        <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
+        <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManagerInterface" alias="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
     </services>
 </container>

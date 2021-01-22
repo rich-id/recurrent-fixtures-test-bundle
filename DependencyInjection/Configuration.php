@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\TemplateBundle\DependencyInjection;
+namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection;
 
 use RichCongress\BundleToolbox\Configuration\AbstractConfiguration;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -13,7 +13,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 class Configuration extends AbstractConfiguration
 {
-    public const CONFIG_NODE = 'rich_congress_unit';
+    public const CONFIG_NODE = 'rich_congress_test.fixtures.recurrence';
 
     /**
      * @param ArrayNodeDefinition $rootNode

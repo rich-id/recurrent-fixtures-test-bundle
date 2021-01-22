@@ -1,8 +1,9 @@
 {
-    "name": "richcongress/template-bundle",
+    "name": "richcongress/recurrent-fixtures-test-bundle",
     "description": "A magic bundle",
     "type": "symfony-bundle",
     "license": "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "RichCongress",
@@ -11,32 +12,50 @@
     ],
     "support": {
         "email": "contact@richcongress.com",
-        "source": "https://github.com/richcongress/template-bundle",
-        "docs": "https://github.com/richcongress/template-bundle/blob/master/README.md",
-        "issues": "https://github.com/richcongress/template-bundle/issues"
+        "source": "https://github.com/richcongress/recurrent-fixtures-test-bundle",
+        "docs": "https://github.com/richcongress/recurrent-fixtures-test-bundle/blob/master/README.md",
+        "issues": "https://github.com/richcongress/recurrent-fixtures-test-bundle/issues"
     },
     "require": {
         "php": ">=7.3",
-        "richcongress/bundle-toolbox": "*"
+        "doctrine/doctrine-fixtures-bundle": "3.5.x-dev",
+        "richcongress/bundle-toolbox": "*",
+        "richcongress/web-test-bundle": "dev-master"
     },
     "require-dev": {
-        "richcongress/unit-bundle": "v2.0.0.x-dev",
+        "roave/security-advisories": "dev-master",
         "infection/infection": "^0.16.4",
         "php-coveralls/php-coveralls": "^2.1"
     },
     "autoload": {
         "psr-4": {
-            "RichCongress\\TemplateBundle\\": ""
+            "RichCongress\\RecurrentFixturesTestBundle\\": ""
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RichCongress\\TemplateBundle\\Tests\\": "Tests/"
+            "RichCongress\\RecurrentFixturesTestBundle\\Tests\\": "Tests/"
         }
     },
     "config": {
         "bin-dir": "bin",
         "discard-changes": true,
         "sort-packages": true
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/home/nover/Bundles/WEB-TEST",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "/home/nover/Bundles/TEST-FRAMEWORK",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }
