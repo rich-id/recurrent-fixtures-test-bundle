@@ -65,7 +65,7 @@ final class FixtureTestCase
 
     private function getFixtureManager(): FixtureManagerInterface
     {
-        if (!self::isEnabled()) {
+        if (!self::isEnabled() || $this->container === null) {
             throw new FixturesNotInitialized();
         }
 
