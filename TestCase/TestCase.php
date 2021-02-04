@@ -3,6 +3,7 @@
 namespace RichCongress\RecurrentFixturesTestBundle\TestCase;
 
 use RichCongress\RecurrentFixturesTestBundle\TestCase\Internal\FixtureTestCase;
+use RichCongress\RecurrentFixturesTestBundle\TestTrait\AuthenticationTrait;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 
 /**
@@ -14,12 +15,14 @@ use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
  */
 abstract class TestCase extends \RichCongress\WebTestBundle\TestCase\TestCase
 {
+    use AuthenticationTrait;
+
     /** @var FixtureTestCase */
     private $fixtureTestCase;
 
-    public function setUp(): void
+    public function setUpTestCase(): void
     {
-        parent::setUp();
+        parent::setUpTestCase();
 
         $container = WebTestCase::isEnabled() ? $this->getContainer() : null;
         $this->fixtureTestCase = new FixtureTestCase($container);
@@ -29,7 +32,8 @@ abstract class TestCase extends \RichCongress\WebTestBundle\TestCase\TestCase
     public function tearDown(): void
     {
         $this->fixtureTestCase->tearDown();
-        parent::tearDown();
+
+        parent::tearDownTestCase();
     }
 
     public function getReference(string $class, string $reference)

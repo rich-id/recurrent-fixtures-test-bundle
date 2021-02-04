@@ -2,6 +2,7 @@
 
 namespace RichCongress\RecurrentFixturesTestBundle\TestCase;
 
+use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\WebTestBundle\TestCase\TestTrait\ControllerTestUtilitiesTrait;
 use RichCongress\WebTestBundle\TestCase\TestTrait\WebTestAssertionsTrait;
 

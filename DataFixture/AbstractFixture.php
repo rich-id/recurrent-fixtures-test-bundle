@@ -5,6 +5,7 @@ namespace RichCongress\RecurrentFixturesTestBundle\DataFixture;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use RichCongress\RecurrentFixturesTestBundle\Helper\ReferenceNameHelper;
+use RichCongress\TestTools\Helper\ForceExecutionHelper;
 use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 
 /**
@@ -61,5 +62,23 @@ abstract class AbstractFixture extends Fixture implements DataFixtureInterface
         if ($this->manager !== null) {
             $this->manager->persist($object);
         }
+    }
+
+    /**
+     * @param string|string[] $references
+     *
+     * @return object
+     */
+    protected function createObject(string $class, $references, array $data)
+    {
+        $object = new $class();
+
+        foreach ($data as $property => $value) {
+            ForceExecutionHelper::setValue($object, $property, $value);
+        }
+
+        $this->save($object, $references);
+
+        return $object;
     }
 }
