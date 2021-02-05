@@ -2,9 +2,8 @@ version: '3.7'
 services:
     application:
         container_name: recurrent-fixtures-test-bundle_app
-        image: richcongress/php:7.3
+        image: richcongress/php:7.3-composer-2
         volumes:
             - .:/app:rw,cached
             - ~/.composer:/home/application/.composer:cached
             - ~/.ssh:/home/application/.ssh:cached
-            - ~/Bundles:/home/nover/Bundles
