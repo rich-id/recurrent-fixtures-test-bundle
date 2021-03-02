@@ -2,9 +2,8 @@
 
 namespace RichCongress\RecurrentFixturesTestBundle\DataFixture;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\SharedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use RichCongress\RecurrentFixturesTestBundle\Helper\ReferenceNameHelper;
 use RichCongress\TestTools\Helper\ForceExecutionHelper;
 use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 
@@ -15,8 +14,10 @@ use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
  * @author     Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright  2014 - 2021 RichCongress (https://www.richcongress.com)
  */
-abstract class AbstractFixture extends Fixture implements DataFixtureInterface
+abstract class AbstractFixture implements DataFixtureInterface, SharedFixtureInterface
 {
+    use ReferenceRepositoryTrait;
+
     /** @var ObjectManager */
     protected $manager;
 
@@ -36,17 +37,6 @@ abstract class AbstractFixture extends Fixture implements DataFixtureInterface
         StaticDriver::withoutTransaction(static function () use ($manager) {
            $manager->flush();
         });
-    }
-
-    /**
-     * @param string $name
-     * @param object $object
-     */
-    public function setReference($name, $object): void
-    {
-        $reference = ReferenceNameHelper::transform($object, $name);
-
-        parent::setReference($reference, $object);
     }
 
     /**
