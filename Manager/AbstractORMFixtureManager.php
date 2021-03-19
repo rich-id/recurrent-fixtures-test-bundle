@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerAlreadyInitialized;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerNotInitialized;
 use RichCongress\RecurrentFixturesTestBundle\Helper\ReferenceNameHelper;
+use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
+use RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer;
 
 /**
  * Class AbstractORMFixtureManager

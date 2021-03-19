@@ -29,7 +29,7 @@ abstract class TestCase extends \RichCongress\WebTestBundle\TestCase\TestCase
         $this->fixtureTestCase->setUp();
     }
 
-    public function tearDown(): void
+    public function tearDownTestCase(): void
     {
         $this->fixtureTestCase->tearDown();
 

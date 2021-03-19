@@ -26,7 +26,7 @@ use RichCongress\WebTestBundle\TestCase\TestCase;
  * @covers \RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerAlreadyInitialized
  * @covers \RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerNotInitialized
  * @covers \RichCongress\RecurrentFixturesTestBundle\Exception\FixtureReferenceNotFound
- * @TestConfig("container")
+ * @TestConfig("fixtures")
  */
 final class FixtureManagerTest extends TestCase
 {
@@ -40,6 +40,7 @@ final class FixtureManagerTest extends TestCase
         }
     }
 
+    /** @group test */
     public function testInit(): void
     {
         $this->fixtureManager->reset();

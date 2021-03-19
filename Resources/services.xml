@@ -9,5 +9,6 @@
 
         <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
         <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManagerInterface" alias="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
+        <service id="RichCongress\RecurrentFixturesTestBundle\Doctrine\TestConnectionFactory" decorates="RichCongress\WebTestBundle\Doctrine\TestConnectionFactory"/>
     </services>
 </container>

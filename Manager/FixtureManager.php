@@ -3,6 +3,7 @@
 namespace RichCongress\RecurrentFixturesTestBundle\Manager;
 
 use Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\DataFixtures\SharedFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,21 +37,28 @@ class FixtureManager extends AbstractORMFixtureManager
 
     public function setDataFixtures(array $dataFixtures): void
     {
-        $this->dataFixtures = $dataFixtures;
+        foreach ($dataFixtures as $dataFixture) {
+            $key = \get_class($dataFixture);
+            $this->dataFixtures[$key] = $dataFixture;
+        }
     }
 
     protected function initReferenceRepository(ReferenceRepository $referenceRepository): void
     {
-        if (!empty($this->dataFixtures)) {
-            foreach ($this->dataFixtures as $dataFixture) {
-                $this->fixturesLoader->addFixture($dataFixture);
-            }
-
-            /** @var DataFixtureInterface $fixture */
-            foreach ($this->fixturesLoader->getFixtures() as $fixture) {
-                $this->loadFixture($fixture);
-            }
+        if (empty($this->dataFixtures)) {
+            return;
         }
+
+        foreach ($this->dataFixtures as $dataFixture) {
+            $this->addFixture($dataFixture);
+        }
+
+        /** @var DataFixtureInterface $fixture */
+        foreach ($this->fixturesLoader->getFixtures() as $fixture) {
+            $this->loadFixture($fixture);
+        }
+
+        $this->entityManager->flush();
     }
 
     public function getReference(string $class, string $reference)
@@ -97,6 +105,27 @@ class FixtureManager extends AbstractORMFixtureManager
         }
 
         $fixture->load($this->entityManager);
-        $this->entityManager->clear();
+        $this->entityManager->flush();
+    }
+
+    protected function addFixture(DataFixtureInterface $fixture): void
+    {
+        if ($this->fixturesLoader->hasFixture($fixture)) {
+            return;
+        }
+
+        if ($fixture instanceof DependentFixtureInterface) {
+            $dependencies = $fixture->getDependencies();
+
+            foreach ($dependencies as $class) {
+                $dependencyFixture = $this->dataFixtures[$class] ?? null;
+
+                if ($dependencyFixture instanceof DataFixtureInterface) {
+                    $this->addFixture($dependencyFixture);
+                }
+            }
+        }
+
+        $this->fixturesLoader->addFixture($fixture);
     }
 }

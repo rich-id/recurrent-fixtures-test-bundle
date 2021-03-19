@@ -5,7 +5,6 @@ namespace RichCongress\RecurrentFixturesTestBundle\DataFixture;
 use Doctrine\Common\DataFixtures\SharedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use RichCongress\TestTools\Helper\ForceExecutionHelper;
-use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 
 /**
  * Class AbstractFixture
@@ -33,10 +32,6 @@ abstract class AbstractFixture implements DataFixtureInterface, SharedFixtureInt
     {
         $this->manager = $manager;
         $this->loadFixtures();
-
-        StaticDriver::withoutTransaction(static function () use ($manager) {
-           $manager->flush();
-        });
     }
 
     /**

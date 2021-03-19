@@ -4,7 +4,7 @@ namespace RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use RichCongress\WebTestBundle\Tests\Resources\Entity\DummyEntity;
+use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
 
 /**
  * Class DummyEntityRepository

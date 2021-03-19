@@ -5,16 +5,16 @@ namespace RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class DummyEntity
+ * Class Another\DummyEntity
  *
  * @package    RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity
  * @author     Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright  2014 - 2021 RichCongress (https://www.richcongress.com)
  *
- * @ORM\Entity(repositoryClass="RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Repository\DummyEntityRepository")
- * @ORM\Table(name="dummy_entity")
+ * @ORM\Entity
+ * @ORM\Table(name="another_dummy_entity")
  */
-class DummyEntity
+class AnotherDummyEntity
 {
     /**
      * @var integer
@@ -26,31 +26,27 @@ class DummyEntity
     private $id;
 
     /**
-     * @var integer
+     * @var DummyEntity
      *
-     * @ORM\Column(type="integer", name="dummy_index", nullable=true, options={"unsigned":true})
+     * @ORM\OneToOne(targetEntity="RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity")
+     * @ORM\JoinColumn(name="dummy_entity_id", referencedColumnName="id", unique=true, onDelete="SET NULL")
      */
-    private $index = 0;
+    private $dummyEntity;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIndex(): ?int
+    public function getDummyEntity(): ?DummyEntity
     {
-        return $this->index;
+        return $this->dummyEntity;
     }
 
-    public function setIndex(int $index): self
+    public function setDummyEntity(DummyEntity $dummyEntity): self
     {
-        $this->index = $index;
+        $this->dummyEntity = $dummyEntity;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return self::class . '_' . $this->id;
     }
 }

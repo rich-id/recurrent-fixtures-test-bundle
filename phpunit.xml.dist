@@ -12,8 +12,8 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="CONFIG_TYPE" value="default" />
-        <env name="KERNEL_DIR" value="Tests/Resources/config"/>
-        <env name="KERNEL_CLASS" value="RichCongress\RecurrentFixturesTestBundle\Tests\Resources\config\TestKernel"/>
+        <env name="KERNEL_DIR" value="Tests/Resources/Kernel"/>
+        <env name="KERNEL_CLASS" value="RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Kernel\TestKernel" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
     </php>
 
@@ -29,16 +29,16 @@
         </include>
 
         <exclude>
-                <directory>bin</directory>
-                <directory>DependencyInjection</directory>
-                <directory>Resources</directory>
-                <directory>Tests</directory>
-                <directory>var</directory>
-                <directory>vendor</directory>
-                <file>.phpstorm.meta.php</file>
-                <file>phpunit-filter.php</file>
-                <file>RichCongressRecurrentFixturesTestBundle.php</file>
-                <file>TestHook.php</file>
+            <directory>bin</directory>
+            <directory>DependencyInjection</directory>
+            <directory>Resources</directory>
+            <directory>Tests</directory>
+            <directory>var</directory>
+            <directory>vendor</directory>
+            <file>.phpstorm.meta.php</file>
+            <file>phpunit-filter.php</file>
+            <file>RichCongressRecurrentFixturesTestBundle.php</file>
+            <file>TestHook.php</file>
         </exclude>
     </coverage>
 

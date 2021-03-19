@@ -5,5 +5,7 @@ services:
         public: true
 
     RichCongress\RecurrentFixturesTestBundle\Tests\Resources\:
-        resource: '../'
-        exclude: '../{config,bin}'
+        resource: '../../'
+        exclude:
+            - '../../Kernel'
+            - '../../Entity'
