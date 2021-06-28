@@ -49,8 +49,21 @@ class FixtureManager extends AbstractORMFixtureManager
             return;
         }
 
+        // Required to avoid a dependency resolution issue
+        $fixturesInfo = [];
+
         foreach ($this->dataFixtures as $dataFixture) {
-            $this->addFixture($dataFixture);
+            $fixturesInfo[] = [
+                'fixture' => $dataFixture,
+                'groups'  => ['test'],
+            ];
+        }
+
+        $this->fixturesLoader->addFixtures($fixturesInfo);
+
+        /** @var DataFixtureInterface $fixture */
+        foreach ($this->fixturesLoader->getFixtures() as $fixture) {
+            $this->loadFixture($fixture);
         }
 
         /** @var DataFixtureInterface $fixture */
