@@ -4,30 +4,31 @@ namespace RichCongress\RecurrentFixturesTestBundle\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\Persistence\ManagerRegistry;
 use RichCongress\RecurrentFixturesTestBundle\Exception\BadDoctrineConfigurationException;
 use RichCongress\RecurrentFixturesTestBundle\TestCase\Internal\FixtureTestCase;
 
 final class EntityManagerWrapper implements EntityManagerInterface
 {
     /** @var EntityManagerInterface */
-    private $fixturesEntityManager;
+    private $defaultEntityManager;
 
     /** @var EntityManagerInterface */
     private $emptyEntityManager;
 
-    public function __construct(EntityManagerInterface $fixturesEntityManager, EntityManagerInterface $emptyEntityManager = null)
+    public function __construct(EntityManagerInterface $defaultEntityManager, ManagerRegistry $managerRegistry)
     {
-        if ($emptyEntityManager === null) {
+        if (!array_key_exists('empty_database', $managerRegistry->getManagerNames())) {
             BadDoctrineConfigurationException::throw();
         }
 
-        $this->fixturesEntityManager = $fixturesEntityManager;
-        $this->emptyEntityManager = $emptyEntityManager;
+        $this->defaultEntityManager = $defaultEntityManager;
+        $this->emptyEntityManager = $managerRegistry->getManager('empty_database');
     }
 
     public function getEntityManager(): EntityManagerInterface
     {
-        return FixtureTestCase::isEnabled() ? $this->fixturesEntityManager : $this->emptyEntityManager;
+        return FixtureTestCase::isEnabled() ? $this->defaultEntityManager : $this->emptyEntityManager;
     }
 
     /** {@inheritdoc} */
