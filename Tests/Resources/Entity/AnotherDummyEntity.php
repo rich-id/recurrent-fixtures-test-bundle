@@ -29,7 +29,7 @@ class AnotherDummyEntity
      * @var DummyEntity
      *
      * @ORM\OneToOne(targetEntity="RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity")
-     * @ORM\JoinColumn(name="dummy_entity_id", referencedColumnName="id", unique=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="dummy_entity_id", referencedColumnName="id", unique=false, onDelete="SET NULL")
      */
     private $dummyEntity;
 

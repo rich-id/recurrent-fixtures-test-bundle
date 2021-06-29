@@ -20,7 +20,7 @@ use RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer;
 abstract class AbstractORMFixtureManager implements FixtureManagerInterface
 {
     /** @var ReferenceRepository|null */
-    protected static $referenceRepository;
+    public static $referenceRepository;
 
     /** @var EntityManagerInterface */
     protected $entityManager;
@@ -62,9 +62,25 @@ abstract class AbstractORMFixtureManager implements FixtureManagerInterface
     {
         $innerReference = ReferenceNameHelper::transform($class, $reference);
 
-        return $this->hasReference($class, $reference)
-            ? static::$referenceRepository->getReference($innerReference)
-            : null;
+        if (!$this->hasReference($class, $reference)) {
+            return null;
+        }
+        
+        $object = static::$referenceRepository->getReference($innerReference);
+        $identity = static::$referenceRepository->getIdentities()[$innerReference] ?? null;
+        $metadata = $this->entityManager->getClassMetadata($class);
+
+        if (!$this->entityManager->contains($object)) {
+            if ($identity !== null ) {
+                $object = $this->entityManager->getReference($metadata->name, $identity);
+                static::$referenceRepository->setReference($innerReference, $object);
+            } else {
+                $id = $object->getId();
+                $object = $id !== null ? $this->entityManager->find($class, $id) : null;
+            }
+        }
+
+        return $object;
     }
 
     abstract protected function initReferenceRepository(ReferenceRepository $referenceRepository): void;

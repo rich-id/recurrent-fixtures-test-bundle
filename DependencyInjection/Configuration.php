@@ -13,7 +13,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 class Configuration extends AbstractConfiguration
 {
-    public const CONFIG_NODE = 'rich_congress_test.fixtures.recurrence';
+    public const CONFIG_NODE = 'rich_congress_test_fixtures_recurrence';
 
     /**
      * @param ArrayNodeDefinition $rootNode
@@ -24,7 +24,6 @@ class Configuration extends AbstractConfiguration
     {
         $children = $rootNode->children();
         $this->buildConfig($children);
-        $children->end();
     }
 
     /**

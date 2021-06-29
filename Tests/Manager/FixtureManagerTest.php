@@ -40,7 +40,6 @@ final class FixtureManagerTest extends TestCase
         }
     }
 
-    /** @group test */
     public function testInit(): void
     {
         $this->fixtureManager->reset();

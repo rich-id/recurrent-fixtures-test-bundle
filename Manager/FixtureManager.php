@@ -11,6 +11,7 @@ use RichCongress\RecurrentFixturesTestBundle\DataFixture\DataFixtureInterface;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureClassNotFound;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureReferenceNotFound;
 use RichCongress\RecurrentFixturesTestBundle\Helper\ReferenceNameHelper;
+use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -49,29 +50,16 @@ class FixtureManager extends AbstractORMFixtureManager
             return;
         }
 
-        // Required to avoid a dependency resolution issue
-        $fixturesInfo = [];
-
-        foreach ($this->dataFixtures as $dataFixture) {
-            $fixturesInfo[] = [
-                'fixture' => $dataFixture,
-                'groups'  => ['test'],
-            ];
-        }
-
-        $this->fixturesLoader->addFixtures($fixturesInfo);
-
-        /** @var DataFixtureInterface $fixture */
-        foreach ($this->fixturesLoader->getFixtures() as $fixture) {
-            $this->loadFixture($fixture);
-        }
-
-        /** @var DataFixtureInterface $fixture */
-        foreach ($this->fixturesLoader->getFixtures() as $fixture) {
+        foreach ($this->dataFixtures as $fixture) {
             $this->loadFixture($fixture);
         }
 
         $this->entityManager->flush();
+
+        if (StaticDriver::isInTransaction()) {
+            StaticDriver::commit();
+            StaticDriver::beginTransaction();
+        }
     }
 
     public function getReference(string $class, string $reference)
@@ -113,16 +101,6 @@ class FixtureManager extends AbstractORMFixtureManager
 
     protected function loadFixture(DataFixtureInterface $fixture): void
     {
-        if ($fixture instanceof SharedFixtureInterface) {
-            $fixture->setReferenceRepository(static::$referenceRepository);
-        }
-
-        $fixture->load($this->entityManager);
-        $this->entityManager->flush();
-    }
-
-    protected function addFixture(DataFixtureInterface $fixture): void
-    {
         if ($this->fixturesLoader->hasFixture($fixture)) {
             return;
         }
@@ -134,11 +112,16 @@ class FixtureManager extends AbstractORMFixtureManager
                 $dependencyFixture = $this->dataFixtures[$class] ?? null;
 
                 if ($dependencyFixture instanceof DataFixtureInterface) {
-                    $this->addFixture($dependencyFixture);
+                    $this->loadFixture($dependencyFixture);
                 }
             }
         }
 
+        if ($fixture instanceof SharedFixtureInterface) {
+            $fixture->setReferenceRepository(static::$referenceRepository);
+        }
+
         $this->fixturesLoader->addFixture($fixture);
+        $fixture->load($this->entityManager);
     }
 }

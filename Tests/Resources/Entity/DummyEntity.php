@@ -32,6 +32,13 @@ class DummyEntity
      */
     private $index = 0;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", name="dummy_reference", nullable=true)
+     */
+    private $reference;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +52,18 @@ class DummyEntity
     public function setIndex(int $index): self
     {
         $this->index = $index;
+
+        return $this;
+    }
+
+    public function getReference(): string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

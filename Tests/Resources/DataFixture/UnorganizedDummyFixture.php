@@ -7,18 +7,11 @@ use RichCongress\RecurrentFixturesTestBundle\DataFixture\AbstractFixture;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\AnotherDummyEntity;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
 
-/**
- * Class AnotherDummyEntityFixture
- *
- * @package    RichCongress\RecurrentFixturesTestBundle\Tests\Resources\DataFixture
- * @author     Nicolas Guilloux <nicolas.guilloux@rich-id.fr>
- * @copyright  2014 - 2021 RichID (https://www.rich-id.fr)
- */
-final class AnotherDummyEntityFixture extends AbstractFixture implements DependentFixtureInterface
+final class UnorganizedDummyFixture extends AbstractFixture implements  DependentFixtureInterface
 {
     protected function loadFixtures(): void
     {
-        foreach (range(1, 10) as $index) {
+        foreach (range(11, 20) as $index) {
             $reference = 'number-' . $index;
             $dummyEntity = $this->getReference(DummyEntity::class, $reference);
 

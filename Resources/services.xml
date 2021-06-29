@@ -9,6 +9,10 @@
 
         <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
         <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManagerInterface" alias="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
-        <service id="RichCongress\RecurrentFixturesTestBundle\Doctrine\TestConnectionFactory" decorates="RichCongress\WebTestBundle\Doctrine\TestConnectionFactory"/>
+
+        <service id="RichCongress\RecurrentFixturesTestBundle\Doctrine\EntityManagerWrapper" decorates="doctrine.orm.default_entity_manager">
+            <argument key="$fixturesEntityManager" type="service" id="RichCongress\RecurrentFixturesTestBundle\Doctrine\EntityManagerWrapper.inner" />
+            <argument key="$emptyEntityManager" type="service" id="doctrine.orm.empty_database_entity_manager" />
+        </service>
     </services>
 </container>

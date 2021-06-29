@@ -16,15 +16,17 @@ final class DummyEntityFixture extends AbstractFixture
 {
     protected function loadFixtures(): void
     {
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 50) as $index) {
             $entity = new DummyEntity();
             $entity->setIndex($index);
+            $entity->setReference('number-' . $index);
             $this->save($entity, 'number-' . $index);
         }
 
-        foreach (range(11, 20) as $index) {
+        foreach (range(51, 100) as $index) {
             $this->createObject(DummyEntity::class, 'number-' . $index, [
-                'index' => $index,
+                'index'     => $index,
+                'reference' => 'number-' . $index,
             ]);
         }
     }

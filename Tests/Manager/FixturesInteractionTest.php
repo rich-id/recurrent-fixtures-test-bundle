@@ -49,20 +49,22 @@ final class FixturesInteractionTest extends TestCase
         self::assertSame($entity, $updatedEntity);
     }
 
-    /** @group test */
     public function testDeleteEntity(): void
     {
         $entity = $this->getReference(DummyEntity::class, 'number-1');
+        self::assertInstanceOf(DummyEntity::class, $entity);
         $this->getManager()->remove($entity);
         $this->getManager()->flush();
 
-        $updatedEntity = $this->getRepository(DummyEntity::class)->findOneBy(['index' => 1]);
+        $updatedEntity = $this->getRepository(DummyEntity::class)->findOneBy(['reference' => 'number-1']);
+        $this->getManager()->refresh($entity);
+        self::assertNull($entity->getId());
         self::assertNull($updatedEntity);
     }
 
     public function testCreateEntityWithLink(): void
     {
-        $dummyEntity = $this->getReference(DummyEntity::class, 'number-1');
+        $dummyEntity = $this->getReference(DummyEntity::class, 'number-50');
         $entity = new AnotherDummyEntity();
         $entity->setDummyEntity($dummyEntity);
 
