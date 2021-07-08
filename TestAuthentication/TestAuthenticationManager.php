@@ -26,7 +26,7 @@ class TestAuthenticationManager
                     return 0;
                 }
 
-                return $left->getPriority() > $right->getPriority() ? 1 : -1;
+                return $left->getPriority() < $right->getPriority() ? 1 : -1;
             }
         );
 
