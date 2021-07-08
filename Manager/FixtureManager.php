@@ -123,5 +123,6 @@ class FixtureManager extends AbstractORMFixtureManager
 
         $this->fixturesLoader->addFixture($fixture);
         $fixture->load($this->entityManager);
+        $this->entityManager->flush();
     }
 }
