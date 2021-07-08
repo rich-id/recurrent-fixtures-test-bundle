@@ -23,9 +23,10 @@
         "richcongress/fixture-test": "^0.1"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
         "infection/infection": "^0.16.4",
-        "php-coveralls/php-coveralls": "^2.1"
+        "php-coveralls/php-coveralls": "^2.1",
+        "roave/security-advisories": "dev-latest",
+        "symfony/security-bundle": "^5.3"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +39,6 @@
         }
     },
     "config": {
-        "bin-dir": "bin",
         "discard-changes": true,
         "sort-packages": true
     }

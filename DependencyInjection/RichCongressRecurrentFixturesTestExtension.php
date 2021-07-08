@@ -5,6 +5,8 @@ namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection;
 use RichCongress\BundleToolbox\Configuration\AbstractExtension;
 use RichCongress\RecurrentFixturesTestBundle\DataFixture\DataFixtureInterface;
 use RichCongress\RecurrentFixturesTestBundle\DependencyInjection\Compiler\DataFixturesPass;
+use RichCongress\RecurrentFixturesTestBundle\DependencyInjection\Compiler\TestAuthenticatorCompilerPass;
+use RichCongress\RecurrentFixturesTestBundle\TestAuthentication\Authenticator\TestAuthenticatorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -16,12 +18,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  */
 class RichCongressRecurrentFixturesTestExtension extends AbstractExtension
 {
-    /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
-     *
-     * @return void
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $this->parseConfiguration(
@@ -33,6 +29,12 @@ class RichCongressRecurrentFixturesTestExtension extends AbstractExtension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources'));
         $loader->load('services.xml');
 
-        $container->registerForAutoconfiguration(DataFixtureInterface::class)->addTag(DataFixturesPass::DATA_FIXTURE_TAG);
+        $container
+            ->registerForAutoconfiguration(DataFixtureInterface::class)
+            ->addTag(DataFixturesPass::DATA_FIXTURE_TAG);
+
+        $container
+            ->registerForAutoconfiguration(TestAuthenticatorInterface::class)
+            ->addTag(TestAuthenticatorCompilerPass::AUTHENTICATOR_SERVICE_TAG);
     }
 }
