@@ -16,16 +16,15 @@
         "issues": "https://github.com/richcongress/recurrent-fixtures-test-bundle/issues"
     },
     "require": {
-        "php": ">=7.3",
+        "php": "^7.1 || ^8.0",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "richcongress/bundle-toolbox": "*",
         "richcongress/web-test-bundle": "^0.1",
         "richcongress/fixture-test": "^0.1"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
-        "infection/infection": "^0.16.4",
-        "php-coveralls/php-coveralls": "^2.1"
+        "roave/security-advisories": "dev-latest",
+        "symfony/security-bundle": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +37,6 @@
         }
     },
     "config": {
-        "bin-dir": "bin",
         "discard-changes": true,
         "sort-packages": true
     }

@@ -5,10 +5,16 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults autowire="true" autoconfigure="true" public="false" />
+        <defaults autowire="true" autoconfigure="true" public="true" />
 
         <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
         <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManagerInterface" alias="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
+        <service id="RichCongress\RecurrentFixturesTestBundle\TestAuthentication\TestAuthenticationManager" />
+        <service id="RichCongress\RecurrentFixturesTestBundle\TestAuthentication\Authenticator\MainSecurityAuthenticator">
+            <argument key="$fixtureManager" type="service" id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" />
+            <argument key="$session" type="service" id="session" />
+            <argument key="$tokenStorage" type="service" id="security.token_storage" on-invalid="null" />
+        </service>
 
         <service id="RichCongress\RecurrentFixturesTestBundle\Doctrine\EntityManagerWrapper" decorates="doctrine.orm.default_entity_manager">
             <argument key="$defaultEntityManager" type="service" id="RichCongress\RecurrentFixturesTestBundle\Doctrine\EntityManagerWrapper.inner" />

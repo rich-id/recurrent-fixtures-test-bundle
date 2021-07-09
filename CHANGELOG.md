@@ -1,5 +1,9 @@
 # Changelog
 
+# Version 0.1.5
+
+- Add TestAuthenticator
+
 # Version 0.1.4
 
 - Add flush step on each fixtures to make sure that any dependency reference has an id

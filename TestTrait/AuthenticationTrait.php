@@ -4,6 +4,8 @@ namespace RichCongress\RecurrentFixturesTestBundle\TestTrait;
 
 use RichCongress\RecurrentFixturesTestBundle\Exception\AuthenticationTypeFailure;
 use RichCongress\RecurrentFixturesTestBundle\Exception\ServiceNotFound;
+use RichCongress\RecurrentFixturesTestBundle\TestAuthentication\Authenticator\TestAuthenticatorInterface;
+use RichCongress\RecurrentFixturesTestBundle\TestAuthentication\TestAuthenticationManager;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -20,41 +22,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 trait AuthenticationTrait
 {
-    protected function authenticate(?string $class, ?string $reference, string $sessionAttribute = '_security_main'): void
+    protected function authenticate(?string $class, ?string $reference): void
     {
-        if ($class === null || $reference === null) {
-            return;
-        }
-
-        $user = $this->getReference($class, $reference);
-
-        if (!$user instanceof UserInterface) {
-            throw new AuthenticationTypeFailure(\get_class($user));
-        }
-
-        $this->authenticateUser($user, $sessionAttribute);
-    }
-
-    protected function authenticateUser(UserInterface $user, string $sessionAttribute = '_security_main'): void
-    {
-        /** @var ContainerInterface $container */
-        $container = $this->getContainer();
-        $tokenStorage = $this->getSecurityTokenStorage();
-
-        if ($tokenStorage === null) {
-            throw new ServiceNotFound('security.token_storage');
-        }
-
-        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
-        $tokenStorage->setToken($token);
-
-        /** @var SessionInterface $session */
-        $session = $container->get('session');
-        $session->set($sessionAttribute, \serialize($token));
-        $session->save();
-
-        $cookie = new Cookie($session->getName(), $session->getId());
-        static::getClient()->getBrowser()->getCookieJar()->set($cookie);
+        $client = $this->getClient();
+        $this->getTestAuthenticationManager()->authenticate($client, $class, $reference);
     }
 
     /**
@@ -62,24 +33,20 @@ trait AuthenticationTrait
      */
     protected function authenticationTearDown(): void
     {
-        $tokenStorage = $this->getSecurityTokenStorage();
-
-        if ($tokenStorage !== null) {
-            $tokenStorage->setToken();
-        }
+        $client = $this->getClient();
+        $this->getTestAuthenticationManager()->deauthenticate($client);
 
         parent::tearDown();
     }
 
-    /**
-     * @return TokenStorageInterface|null
-     */
-    private function getSecurityTokenStorage(): ?TokenStorageInterface
+    private function getTestAuthenticationManager(): TestAuthenticationManager
     {
-        $tokenStorage = $this->getContainer()->has('security.token_storage')
-            ? $this->getContainer()->get('security.token_storage')
-            : null;
+        $testAuthenticationManager = $this->getContainer()->get(TestAuthenticationManager::class);
 
-        return $tokenStorage instanceof TokenStorageInterface ? $tokenStorage : null;
+        if (!$testAuthenticationManager instanceof TestAuthenticationManager) {
+            throw new \LogicException('Fail to get TestAuthenticationManager');
+        }
+
+        return $testAuthenticationManager;
     }
 }
