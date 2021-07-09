@@ -23,8 +23,6 @@
         "richcongress/fixture-test": "^0.1"
     },
     "require-dev": {
-        "infection/infection": "^0.16.4",
-        "php-coveralls/php-coveralls": "^2.1",
         "roave/security-advisories": "dev-latest",
         "symfony/security-bundle": "^5.0"
     },
