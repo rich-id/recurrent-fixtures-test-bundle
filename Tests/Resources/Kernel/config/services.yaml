@@ -9,3 +9,6 @@ services:
         exclude:
             - '../../Kernel'
             - '../../Entity'
+
+    security.token_storage:
+        class: 'RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Stubs\TokenStorage'

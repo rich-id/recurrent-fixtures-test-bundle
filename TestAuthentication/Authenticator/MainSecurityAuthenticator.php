@@ -38,17 +38,16 @@ class MainSecurityAuthenticator implements TestAuthenticatorInterface
 
     public function authenticate(Client $client, ?string $class, ?string $reference): void
     {
+        if ($this->tokenStorage === null) {
+            throw new ServiceNotFound('security.token_storage');
+        }
+
         $user = $this->fixturesManager->getReference($class, $reference);
 
         if (!$user instanceof UserInterface) {
             throw new AuthenticationTypeFailure(\get_class($user));
         }
 
-        if ($this->tokenStorage === null) {
-            throw new ServiceNotFound('security.token_storage');
-        }
-
-        var_dump('test');
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         $this->tokenStorage->setToken($token);
 
