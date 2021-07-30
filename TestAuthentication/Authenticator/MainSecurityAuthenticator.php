@@ -2,6 +2,7 @@
 
 namespace RichCongress\RecurrentFixturesTestBundle\TestAuthentication\Authenticator;
 
+use RichCongress\RecurrentFixturesTestBundle\Exception\AuthenticationBadRoleCountException;
 use RichCongress\RecurrentFixturesTestBundle\Exception\AuthenticationTypeFailure;
 use RichCongress\RecurrentFixturesTestBundle\Exception\ServiceNotFound;
 use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager;
@@ -46,6 +47,10 @@ class MainSecurityAuthenticator implements TestAuthenticatorInterface
 
         if (!$user instanceof UserInterface) {
             throw new AuthenticationTypeFailure(\get_class($user));
+        }
+
+        if (count($user->getRoles()) <= 0) {
+            AuthenticationBadRoleCountException::throw();
         }
 
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());

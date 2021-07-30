@@ -1,5 +1,9 @@
 # Changelog
 
+# Version 0.1.6
+
+- Warn authentication failure when user has no role
+
 # Version 0.1.5
 
 - Add TestAuthenticator
