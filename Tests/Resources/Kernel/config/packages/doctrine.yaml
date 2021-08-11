@@ -28,10 +28,3 @@ doctrine:
                         alias: App
             empty_database:
                 connection: empty_database
-                mappings:
-                    App:
-                        is_bundle: false
-                        type: annotation
-                        dir: '%kernel.project_dir%/Tests/Resources/Entity'
-                        prefix: 'RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity'
-                        alias: App
