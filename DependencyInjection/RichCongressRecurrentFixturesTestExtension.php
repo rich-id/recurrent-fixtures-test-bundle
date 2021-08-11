@@ -4,8 +4,8 @@ namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection;
 
 use RichCongress\BundleToolbox\Configuration\AbstractExtension;
 use RichCongress\RecurrentFixturesTestBundle\DataFixture\DataFixtureInterface;
-use RichCongress\RecurrentFixturesTestBundle\DependencyInjection\Compiler\DataFixturesPass;
-use RichCongress\RecurrentFixturesTestBundle\DependencyInjection\Compiler\TestAuthenticatorCompilerPass;
+use RichCongress\RecurrentFixturesTestBundle\DependencyInjection\CompilerPass\DataFixturesPass;
+use RichCongress\RecurrentFixturesTestBundle\DependencyInjection\CompilerPass\TestAuthenticatorCompilerPass;
 use RichCongress\RecurrentFixturesTestBundle\TestAuthentication\Authenticator\TestAuthenticatorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
