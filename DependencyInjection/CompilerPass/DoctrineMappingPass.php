@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Definition;
 
-final class DoctrineMappingPass extends AbstractCompilerPass
+class DoctrineMappingPass extends AbstractCompilerPass
 {
     public const PRIORITY = PHP_INT_MIN;
 
