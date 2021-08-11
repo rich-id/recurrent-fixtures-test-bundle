@@ -1,20 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection\Compiler;
+namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection\CompilerPass;
 
 use RichCongress\BundleToolbox\Configuration\AbstractCompilerPass;
 use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- * Class DataFixturesPass
- *
- * @package    RichCongress\RecurrentFixturesTestBundle\DependencyInjection\Compiler
- * @author     Nicolas Guilloux <nguilloux@richcongress.com>
- * @copyright  2014 - 2021 RichCongress (https://www.richcongress.com)
- */
-final class DataFixturesPass extends AbstractCompilerPass
+class DataFixturesPass extends AbstractCompilerPass
 {
     public const DATA_FIXTURE_TAG = 'rich_congress_test.data_fixture';
     public const MANDATORY_SERVICES = [FixtureManager::class];

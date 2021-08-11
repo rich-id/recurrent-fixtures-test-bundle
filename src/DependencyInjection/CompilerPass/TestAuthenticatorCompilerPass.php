@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection\Compiler;
+namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection\CompilerPass;
 
 use RichCongress\BundleToolbox\Configuration\AbstractCompilerPass;
 use RichCongress\RecurrentFixturesTestBundle\TestAuthentication\TestAuthenticationManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class TestAuthenticatorCompilerPass extends AbstractCompilerPass
+class TestAuthenticatorCompilerPass extends AbstractCompilerPass
 {
     public const AUTHENTICATOR_SERVICE_TAG = 'rich_congress.test_authenticator';
 

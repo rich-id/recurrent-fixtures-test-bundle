@@ -19,26 +19,19 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory suffix="Test.php">Tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
     <coverage processUncoveredFiles="true">
         <include>
-            <directory suffix=".php">.</directory>
+            <directory suffix=".php">src</directory>
         </include>
 
         <exclude>
-            <directory>bin</directory>
-            <directory>DependencyInjection</directory>
-            <directory>Resources</directory>
-            <directory>Tests</directory>
-            <directory>var</directory>
-            <directory>vendor</directory>
-            <file>.phpstorm.meta.php</file>
-            <file>phpunit-filter.php</file>
-            <file>RichCongressRecurrentFixturesTestBundle.php</file>
-            <file>TestHook.php</file>
+            <directory>src/DependencyInjection</directory>
+            <directory>src/Resources</directory>
+            <file>src/RichCongressRecurrentFixturesTestBundle.php</file>
         </exclude>
     </coverage>
 

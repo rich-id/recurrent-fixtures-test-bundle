@@ -1,0 +1,11 @@
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/tests/Resources/Entity'
+                        prefix: 'RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity'
+                        alias: App

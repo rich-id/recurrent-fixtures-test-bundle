@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RichCongress\\RecurrentFixturesTestBundle\\": ""
+            "RichCongress\\RecurrentFixturesTestBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RichCongress\\RecurrentFixturesTestBundle\\Tests\\": "Tests/"
+            "RichCongress\\RecurrentFixturesTestBundle\\Tests\\": "tests/"
         }
     },
     "config": {
