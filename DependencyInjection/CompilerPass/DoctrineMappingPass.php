@@ -61,7 +61,9 @@ final class DoctrineMappingPass extends AbstractCompilerPass
 
     protected function addMapping(string $driverClass, array $driverArgs, array $namespaces, ContainerBuilder $container): void
     {
-        $driver = new Definition($driverClass, $driverArgs);
+        $reader = new Reference('annotation_reader');
+        $args = array_merge([$reader], $driverArgs);
+        $driver = new Definition($driverClass, $args);
         $pass = new DoctrineOrmMappingsPass($driver, $namespaces, ['doctrine.empty_database_entity_manager']);
 
         $pass->process($container);
