@@ -7,7 +7,9 @@ Here is a list of the exceptions the bundle might throw.
 
 This happens when Doctrine is not configured to support both a fixtures populated database and an empty one.
 
-Here is an sample of configuration for Doctrine for the test environment. Mind the name `empty_database` which is hardcoded for now.
+This bundle should automatically set this configuration for you. If this exception is thrown it's probably due to a bug in the bundle or due to a funky doctrine configuration. You can use `bin/console debug:config doctrine` to dump your configuration as understood by symfony.
+
+As a reference, here is a sample of configuration for Doctrine for the test environment. Mind the name `empty_database` which is hardcoded for now.
 
 ```yaml
 doctrine:
