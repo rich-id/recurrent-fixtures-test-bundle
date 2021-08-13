@@ -41,6 +41,7 @@ final class FixturesInteractionTest extends TestCase
     {
         $entity = new DummyEntity();
         $entity->setIndex(999);
+        $entity->setAnyString('test');
 
         $this->getManager()->persist($entity);
         $this->getManager()->flush();

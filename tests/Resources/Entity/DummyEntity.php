@@ -39,6 +39,13 @@ class DummyEntity
      */
     private $reference;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $anyString;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,6 +71,18 @@ class DummyEntity
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getAnyString(): string
+    {
+        return $this->anyString;
+    }
+
+    public function setAnyString(string $anyString): self
+    {
+        $this->anyString = $anyString;
 
         return $this;
     }

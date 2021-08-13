@@ -20,6 +20,7 @@ final class DummyEntityFixture extends AbstractFixture
             $entity = new DummyEntity();
             $entity->setIndex($index);
             $entity->setReference('number-' . $index);
+            $entity->setAnyString('any_string');
             $this->save($entity, 'number-' . $index);
         }
 
