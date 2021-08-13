@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb77aee6e9af669a38588346fafc7b3f",
+    "content-hash": "9886f6e34477652b1c7a20b32531c3ac",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1234,43 +1234,45 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.9.3",
+            "version": "2.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "82e77cf5089a1303733f75f0f0ed01be3ab9ec22"
+                "reference": "b19a13f4edfaa5806109cd899f5912a7df1547b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/82e77cf5089a1303733f75f0f0ed01be3ab9ec22",
-                "reference": "82e77cf5089a1303733f75f0f0ed01be3ab9ec22",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/b19a13f4edfaa5806109cd899f5912a7df1547b5",
+                "reference": "b19a13f4edfaa5806109cd899f5912a7df1547b5",
                 "shasum": ""
             },
             "require": {
                 "composer/package-versions-deprecated": "^1.8",
                 "doctrine/annotations": "^1.13",
-                "doctrine/cache": "^1.11.3|^2.0.3",
+                "doctrine/cache": "^1.12.1 || ^2.1.1",
                 "doctrine/collections": "^1.5",
                 "doctrine/common": "^3.0.3",
                 "doctrine/dbal": "^2.13.0",
                 "doctrine/deprecations": "^0.5.3",
                 "doctrine/event-manager": "^1.1",
-                "doctrine/inflector": "^1.4|^2.0",
+                "doctrine/inflector": "^1.4 || ^2.0",
                 "doctrine/instantiator": "^1.3",
                 "doctrine/lexer": "^1.0",
                 "doctrine/persistence": "^2.2",
+                "ext-ctype": "*",
                 "ext-pdo": "*",
-                "php": "^7.1|^8.0",
+                "php": "^7.1 ||^8.0",
                 "psr/cache": "^1 || ^2 || ^3",
-                "symfony/console": "^3.0|^4.0|^5.0|^6.0"
+                "symfony/console": "^3.0 || ^4.0 || ^5.0 || ^6.0"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^9.0",
-                "phpstan/phpstan": "^0.12.83",
-                "phpunit/phpunit": "^7.5|^8.5|^9.4",
+                "phpbench/phpbench": "^0.16.10 || ^1.0",
+                "phpstan/phpstan": "0.12.94",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
                 "squizlabs/php_codesniffer": "3.6.0",
-                "symfony/cache": "^4.4|^5.2",
-                "symfony/yaml": "^3.4|^4.0|^5.0|^6.0",
+                "symfony/cache": "^4.4 || ^5.2",
+                "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0",
                 "vimeo/psalm": "4.7.0"
             },
             "suggest": {
@@ -1320,9 +1322,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.9.3"
+                "source": "https://github.com/doctrine/orm/tree/2.9.4"
             },
-            "time": "2021-06-13T10:29:22+00:00"
+            "time": "2021-08-11T20:53:03+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -2858,16 +2860,16 @@
         },
         {
             "name": "richcongress/bundle-toolbox",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rich-id/bundle-toolbox.git",
-                "reference": "8d83009f87bcc9a102ee7f28aa47e2853ed56869"
+                "reference": "b83fba6822e2f1c1feac98d82f08f7fd270e1a6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rich-id/bundle-toolbox/zipball/8d83009f87bcc9a102ee7f28aa47e2853ed56869",
-                "reference": "8d83009f87bcc9a102ee7f28aa47e2853ed56869",
+                "url": "https://api.github.com/repos/rich-id/bundle-toolbox/zipball/b83fba6822e2f1c1feac98d82f08f7fd270e1a6d",
+                "reference": "b83fba6822e2f1c1feac98d82f08f7fd270e1a6d",
                 "shasum": ""
             },
             "require": {
@@ -2901,32 +2903,32 @@
             "description": "A set of classes and tools to quickly build a bundle",
             "support": {
                 "issues": "https://github.com/rich-id/bundle-toolbox/issues",
-                "source": "https://github.com/rich-id/bundle-toolbox/tree/v1.2.1"
+                "source": "https://github.com/rich-id/bundle-toolbox/tree/v1.2.2"
             },
-            "time": "2021-08-04T15:13:29+00:00"
+            "time": "2021-08-13T07:51:05+00:00"
         },
         {
             "name": "richcongress/fixture-test",
-            "version": "v0.1.2",
+            "version": "v0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rich-id/fixture-test.git",
-                "reference": "77447a51cabfe09f765c1d920849a578e6d2ec2d"
+                "reference": "2351d44f4dc69e512e4e6b43a04dda0a657dc3d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rich-id/fixture-test/zipball/77447a51cabfe09f765c1d920849a578e6d2ec2d",
-                "reference": "77447a51cabfe09f765c1d920849a578e6d2ec2d",
+                "url": "https://api.github.com/repos/rich-id/fixture-test/zipball/2351d44f4dc69e512e4e6b43a04dda0a657dc3d1",
+                "reference": "2351d44f4dc69e512e4e6b43a04dda0a657dc3d1",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1.11",
                 "nelmio/alice": "^3.7",
                 "php": ">=7.3",
-                "php-di/phpdoc-reader": "^2.2",
-                "richcongress/bundle-toolbox": "^1.0"
+                "php-di/phpdoc-reader": "^2.2"
             },
             "require-dev": {
+                "richcongress/bundle-toolbox": "^1.0",
                 "richcongress/static-analysis": "^0.1",
                 "richcongress/test-tools": "dev-master",
                 "roave/security-advisories": "dev-latest"
@@ -2965,7 +2967,7 @@
                 "issues": "https://github.com/richcongress/fixture-test/issues",
                 "source": "https://github.com/richcongress/fixture-test"
             },
-            "time": "2021-08-10T13:43:11+00:00"
+            "time": "2021-08-13T10:26:52+00:00"
         },
         {
             "name": "richcongress/test-framework",
@@ -6983,12 +6985,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "1eb2f918082aab68a3a0858d3d23c36171122fe7"
+                "reference": "6da216d969efa7e52cc7d0af125b8c8bb9caed25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1eb2f918082aab68a3a0858d3d23c36171122fe7",
-                "reference": "1eb2f918082aab68a3a0858d3d23c36171122fe7",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6da216d969efa7e52cc7d0af125b8c8bb9caed25",
+                "reference": "6da216d969efa7e52cc7d0af125b8c8bb9caed25",
                 "shasum": ""
             },
             "conflict": {
@@ -7038,7 +7040,7 @@
                 "doctrine/mongodb-odm": ">=1,<1.0.2",
                 "doctrine/mongodb-odm-bundle": ">=2,<3.0.1",
                 "doctrine/orm": ">=2,<2.4.8|>=2.5,<2.5.1|>=2.8.3,<2.8.4",
-                "dolibarr/dolibarr": "<11.0.4",
+                "dolibarr/dolibarr": "<14",
                 "dompdf/dompdf": ">=0.6,<0.6.2",
                 "drupal/core": ">=7,<7.80|>=8,<8.9.14|>=9,<9.0.12|>=9.1,<9.1.7",
                 "drupal/drupal": ">=7,<7.80|>=8,<8.9.14|>=9,<9.0.12|>=9.1,<9.1.7",
@@ -7358,7 +7360,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-08-11T13:12:21+00:00"
+            "time": "2021-08-11T16:04:32+00:00"
         },
         {
             "name": "symfony/password-hasher",

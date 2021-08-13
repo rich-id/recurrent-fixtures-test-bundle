@@ -4,7 +4,8 @@ namespace RichCongress\RecurrentFixturesTestBundle\DataFixture;
 
 use Doctrine\Common\DataFixtures\SharedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use RichCongress\TestTools\Helper\ForceExecutionHelper;
+use RichCongress\FixtureTestBundle\Generator\GeneratorInterface;
+use RichCongress\FixtureTestBundle\Generator\StaticGenerator;
 
 /**
  * Class AbstractFixture
@@ -19,6 +20,15 @@ abstract class AbstractFixture implements DataFixtureInterface, SharedFixtureInt
 
     /** @var ObjectManager */
     protected $manager;
+
+    /** @var GeneratorInterface|null */
+    protected $fixtureGenerator;
+
+    /** @required */
+    public function setFixtureGenerator(GeneratorInterface $generator = null): void
+    {
+        $this->fixtureGenerator = $generator;
+    }
 
     /**
      * Loads the fixtures. All persisted data will be flushed at the end of the function.
@@ -38,7 +48,7 @@ abstract class AbstractFixture implements DataFixtureInterface, SharedFixtureInt
      * @param object|mixed    $object
      * @param string|string[] $references
      */
-    protected function save($object, $references): void
+    protected function save($object, $references = []): void
     {
         foreach ((array) $references as $reference) {
             $this->setReference($reference, $object);
@@ -54,13 +64,11 @@ abstract class AbstractFixture implements DataFixtureInterface, SharedFixtureInt
      *
      * @return object
      */
-    protected function createObject(string $class, $references, array $data)
+    protected function createObject(string $class, $references = [], array $data = [])
     {
-        $object = new $class();
-
-        foreach ($data as $property => $value) {
-            ForceExecutionHelper::setValue($object, $property, $value);
-        }
+        $object = $this->fixtureGenerator !== null
+            ? $this->fixtureGenerator->generate($class, $data)
+            : StaticGenerator::make($class, $data);
 
         $this->save($object, $references);
 

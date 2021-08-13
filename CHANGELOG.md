@@ -1,5 +1,9 @@
 # Changelog
 
+# Version 0.1.8
+
+- Add FixtureGenerator in AbstractFixture
+
 # Version 0.1.7
 
 - Autoconfigure doctrine

@@ -1,5 +1,6 @@
 framework:
     secret: 'SECRET'
+    default_locale: 'fr_FR'
     test: true
     session:
         storage_id: session.storage.mock_file
