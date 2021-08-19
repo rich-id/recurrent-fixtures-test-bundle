@@ -21,7 +21,7 @@ final class SqliteRegexInjectionTest extends TestCase
             ->select('de.id')
             ->from(DummyEntity::class, 'de')
             ->where('de.id < 15')
-            ->andWhere("REGEXP(de.reference, 'number-\\d') = 1");
+            ->andWhere("REGEXP(de.reference, 'number-\\d$') = 1");
 
         $result = $qb->getQuery()->getResult();
 
@@ -36,7 +36,7 @@ final class SqliteRegexInjectionTest extends TestCase
             ->select('de.id')
             ->from(DummyEntity::class, 'de')
             ->where('de.id < 15')
-            ->andWhere("REGEXP_REPLACE(de.reference, 'number-\\d', 'number_1') = 'number_1'");
+            ->andWhere("REGEXP_REPLACE(de.reference, 'number-\\d$', 'number_1') = 'number_1'");
 
         $result = $qb->getQuery()->getResult();
 
