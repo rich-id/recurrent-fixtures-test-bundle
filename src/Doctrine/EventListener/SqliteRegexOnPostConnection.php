@@ -22,14 +22,14 @@ class SqliteRegexOnPostConnection
             'REGEXP',
             static function (string $regex, string $value): int {
 
-                return preg_match('/' . $regex . '/', $value) ?: 0;
+                return preg_match('/' . $regex . '/u', $value) ?: 0;
             }
         );
 
         $connection->sqliteCreateFunction(
             'REGEXP_REPLACE',
             static function (string $value, string $regex, string $replace): string {
-                return preg_replace('/' . $regex . '/', $replace, $value);
+                return preg_replace('/' . $regex . '/u', $replace, $value);
             }
         );
     }
