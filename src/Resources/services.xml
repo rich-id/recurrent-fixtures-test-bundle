@@ -20,5 +20,9 @@
             <argument key="$defaultEntityManager" type="service" id="RichCongress\RecurrentFixturesTestBundle\Doctrine\EntityManagerWrapper.inner" />
             <argument key="$managerRegistry" type="service" id="doctrine" />
         </service>
+
+        <service id="RichCongress\RecurrentFixturesTestBundle\Doctrine\EventListener\SqliteRegexOnPostConnection">
+            <tag name="doctrine.event_listener" event="postConnect" />
+        </service>
     </services>
 </container>
