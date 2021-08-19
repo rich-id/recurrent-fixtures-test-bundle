@@ -3,6 +3,8 @@
 namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection\PrependConfiguration;
 
 use RichCongress\BundleToolbox\Configuration\PrependConfiguration\AbstractPrependConfiguration;
+use RichCongress\RecurrentFixturesTestBundle\Doctrine\Functions\Sqlite\Regexp;
+use RichCongress\RecurrentFixturesTestBundle\Doctrine\Functions\Sqlite\RegexReplace;
 
 class DoctrinePrependConfiguration extends AbstractPrependConfiguration
 {
@@ -16,7 +18,7 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                 'dbal' => [
                     'default_connection' => 'default',
                     'connections'        => [
-                        'default' => [
+                        'default'        => [
                             'driver' => 'pdo_sqlite',
                             'user'   => 'test',
                             'path'   => static::DEFAULT_DB_PATH,
@@ -34,13 +36,25 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                 ],
                 'orm'  => [
                     'default_entity_manager' => 'default',
-                    'entity_managers' => [
-                        'default' => [
-                            'connection' => 'default',
+                    'entity_managers'        => [
+                        'default'        => [
+                            'connection'   => 'default',
                             'auto_mapping' => true,
+                            'dql'                    => [
+                                'string_functions' => [
+                                    'REGEXP'         => Regexp::class,
+                                    'REGEXP_REPLACE' => RegexReplace::class,
+                                ],
+                            ],
                         ],
                         'empty_database' => [
                             'connection' => 'empty_database',
+                            'dql'                    => [
+                                'string_functions' => [
+                                    'REGEXP'         => Regexp::class,
+                                    'REGEXP_REPLACE' => RegexReplace::class,
+                                ],
+                            ],
                         ],
                     ],
                 ],
