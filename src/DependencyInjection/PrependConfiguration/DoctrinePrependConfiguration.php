@@ -3,8 +3,8 @@
 namespace RichCongress\RecurrentFixturesTestBundle\DependencyInjection\PrependConfiguration;
 
 use RichCongress\BundleToolbox\Configuration\PrependConfiguration\AbstractPrependConfiguration;
-use RichCongress\RecurrentFixturesTestBundle\Doctrine\Functions\Mysql\Regexp;
-use RichCongress\RecurrentFixturesTestBundle\Doctrine\Functions\Mysql\RegexReplace;
+use RichCongress\RecurrentFixturesTestBundle\Doctrine\Functions\Sqlite\Regexp;
+use RichCongress\RecurrentFixturesTestBundle\Doctrine\Functions\Sqlite\RegexReplace;
 
 class DoctrinePrependConfiguration extends AbstractPrependConfiguration
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RichCongress\RecurrentFixturesTestBundle\Doctrine\Functions\Mysql;
+namespace RichCongress\RecurrentFixturesTestBundle\Doctrine\Functions\Sqlite;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\AST\Node;
