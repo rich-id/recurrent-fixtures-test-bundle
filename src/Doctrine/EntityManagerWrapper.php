@@ -226,7 +226,7 @@ final class EntityManagerWrapper implements EntityManagerInterface
     /** {@inheritdoc} */
     public function remove($object): void
     {
-        $this->getEntityManager()->refresh($object);
+        $this->getEntityManager()->remove($object);
     }
 
     /** {@inheritdoc} */

@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.1.10
+
+- Fix entity manager remove
+
 ## Version 0.1.9
 
 - Add REGEXP and REGEXP_REPLACE in SQLite
