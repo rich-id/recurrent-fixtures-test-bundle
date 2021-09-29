@@ -52,15 +52,13 @@ final class FixturesInteractionTest extends TestCase
 
     public function testDeleteEntity(): void
     {
-        $this->markTestSkipped('This is a bug, the entity is apparently not deleted after a remove and a flush.');
-
         $entity = $this->getReference(DummyEntity::class, 'number-1');
+        $previousId = $entity->getId();
         self::assertInstanceOf(DummyEntity::class, $entity);
         $this->getManager()->remove($entity);
         $this->getManager()->flush();
 
-        $updatedEntity = $this->getRepository(DummyEntity::class)->findOneBy(['reference' => 'number-1']);
-        $this->getManager()->refresh($entity);
+        $updatedEntity = $this->getRepository(DummyEntity::class)->find($previousId);
         self::assertNull($entity->getId());
         self::assertNull($updatedEntity);
     }
