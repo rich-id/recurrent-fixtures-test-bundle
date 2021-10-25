@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.1.11
+
+- Fix dependency to force doctrine/dbal v2, this lib is not compatible with v3 yet
+
 ## Version 0.1.10
 
 - Fix entity manager remove
