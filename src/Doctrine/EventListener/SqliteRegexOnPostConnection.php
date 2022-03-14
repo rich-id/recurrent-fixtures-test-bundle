@@ -18,7 +18,17 @@ class SqliteRegexOnPostConnection
             return;
         }
 
-        $connection->sqliteCreateFunction(
+        // For doctrine/dbal 2.x
+        if (\method_exists($connection, 'sqliteCreateFunction')) {
+            $nativeConnection = $connection;
+            // For doctrine/dbal 3.x
+        } elseif (\method_exists($connection, 'getNativeConnection')) {
+            $nativeConnection = $connection->getNativeConnection();
+        } else {
+            throw new \InvalidArgumentException('Unsupported doctrine pdo version.');
+        }
+
+        $nativeConnection->sqliteCreateFunction(
             'REGEXP',
             static function (string $regex, string $value): int {
 
@@ -26,7 +36,7 @@ class SqliteRegexOnPostConnection
             }
         );
 
-        $connection->sqliteCreateFunction(
+        $nativeConnection->sqliteCreateFunction(
             'REGEXP_REPLACE',
             static function (string $value, string $regex, string $replace): string {
                 return preg_replace('/' . $regex . '/u', $replace, $value);
