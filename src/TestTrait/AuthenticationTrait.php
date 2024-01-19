@@ -28,6 +28,12 @@ trait AuthenticationTrait
         $this->getTestAuthenticationManager()->authenticate($client, $class, $reference);
     }
 
+    protected function authenticateUser(UserInterface $user): void
+    {
+        $client = $this->getClient();
+        $this->getTestAuthenticationManager()->authenticateUser($client, $user);
+    }
+
     /**
      * @internal
      */

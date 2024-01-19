@@ -49,6 +49,11 @@ class MainSecurityAuthenticator implements TestAuthenticatorInterface
             throw new AuthenticationTypeFailure(\get_class($user));
         }
 
+        $this->authenticateUser($client, $user);
+    }
+
+    public function authenticateUser(Client $client, UserInterface $user): void
+    {
         if (count($user->getRoles()) <= 0) {
             AuthenticationBadRoleCountException::throw();
         }
@@ -71,6 +76,11 @@ class MainSecurityAuthenticator implements TestAuthenticatorInterface
     public function supports(?string $class, ?string $reference): bool
     {
         return is_subclass_of($class, UserInterface::class) || $class === UserInterface::class;
+    }
+
+    public function supportsUser(UserInterface $user): bool
+    {
+        return true;
     }
 
     public function getPriority(): int

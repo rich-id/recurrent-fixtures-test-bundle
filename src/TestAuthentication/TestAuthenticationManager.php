@@ -5,6 +5,7 @@ namespace RichCongress\RecurrentFixturesTestBundle\TestAuthentication;
 use RichCongress\RecurrentFixturesTestBundle\Exception\AuthenticationFailureException;
 use RichCongress\RecurrentFixturesTestBundle\TestAuthentication\Authenticator\TestAuthenticatorInterface;
 use RichCongress\WebTestBundle\WebTest\Client;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class TestAuthenticationManager
 {
@@ -42,6 +43,23 @@ class TestAuthenticationManager
                 $this->lastAuthentication = [
                     'class'         => $class,
                     'reference'     => $reference,
+                    'authenticator' => $authenticator,
+                ];
+
+                return;
+            }
+        }
+
+        AuthenticationFailureException::throw();
+    }
+
+    public function authenticateUser(Client $client, UserInterface $user): void
+    {
+        foreach ($this->authenticators as $authenticator) {
+            if ($authenticator->supportsUser($user)) {
+                $authenticator->authenticateUser($client, $user);
+
+                $this->lastAuthentication = [
                     'authenticator' => $authenticator,
                 ];
 
