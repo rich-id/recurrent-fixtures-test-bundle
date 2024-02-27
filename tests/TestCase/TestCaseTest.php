@@ -6,7 +6,7 @@ use RichCongress\RecurrentFixturesTestBundle\Exception\FixturesNotInitialized;
 use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManagerInterface;
 use RichCongress\RecurrentFixturesTestBundle\TestCase\TestCase;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 
 /**
  * Class TestCaseTest
@@ -27,27 +27,21 @@ final class TestCaseTest extends TestCase
         $this->getReference(DummyEntity::class, 'number-1');
     }
 
-    /**
-     * @TestConfig("kernel")
-     */
+    #[TestConfig('kernel')]
     public function testGetReferenceWithWrongConfig(): void
     {
         $this->expectException(FixturesNotInitialized::class);
         $this->getReference(DummyEntity::class, 'number-1');
     }
 
-    /**
-     * @TestConfig("fixtures")
-     */
+    #[TestConfig('fixtures')]
     public function testGetReferenceWithConfig(): void
     {
         $result = $this->getReference(DummyEntity::class, 'number-1');
         self::assertInstanceOf(DummyEntity::class, $result);
     }
 
-    /**
-     * @TestConfig("kernel")
-     */
+    #[TestConfig('kernel')]
     public function testSideEffect(): void
     {
         $fixtureManager = $this->getService(FixtureManagerInterface::class);
@@ -55,9 +49,7 @@ final class TestCaseTest extends TestCase
         self::assertFalse($fixtureManager->isInitialized());
     }
 
-    /**
-     * @TestConfig("fixtures")
-     */
+    #[TestConfig('fixtures')]
     public function testGetReferenceWithConfigButFixturesNotInitialized(): void
     {
         $result = $this->getReference(DummyEntity::class, 'number-1');

@@ -12,7 +12,7 @@ namespace RichCongress\RecurrentFixturesTestBundle\Exception;
 final class FixturesNotInitialized extends \LogicException
 {
     /** @var string  */
-    protected static $error = 'The fixtures are not initialized. Did you add the annotation `@TestConfig("fixtures")` to your method or class?';
+    protected static $error = "The fixtures are not initialized. Did you add the attribute `#[TestConfig('fixtures')]` to your method or class?";
 
     /** @var string  */
     protected static $documentation = 'https://github.com/richcongress/recurrent-fixtures-test-bundle/blob/master/Docs/Exceptions.md#FixturesNotInitializedException';

@@ -6,7 +6,6 @@ use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerAlreadyInitialized;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerNotInitialized;
-use RichCongress\RecurrentFixturesTestBundle\Helper\ReferenceNameHelper;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
 use RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer;
 
@@ -53,27 +52,24 @@ abstract class AbstractORMFixtureManager implements FixtureManagerInterface
     public function hasReference(string $class, string $reference): bool
     {
         $this->checkInitialized();
-        $innerReference = ReferenceNameHelper::transform($class, $reference);
 
-        return static::$referenceRepository->hasReference($innerReference);
+        return static::$referenceRepository->hasReference($reference, $class);
     }
 
     public function getReference(string $class, string $reference)
     {
-        $innerReference = ReferenceNameHelper::transform($class, $reference);
-
         if (!$this->hasReference($class, $reference)) {
             return null;
         }
         
-        $object = static::$referenceRepository->getReference($innerReference);
-        $identity = static::$referenceRepository->getIdentities()[$innerReference] ?? null;
+        $object = static::$referenceRepository->getReference($reference, $class);
+        $identity = static::$referenceRepository->getIdentitiesByClass()[$class][$reference] ?? null;
         $metadata = $this->entityManager->getClassMetadata($class);
 
         if (!$this->entityManager->contains($object)) {
             if ($identity !== null ) {
                 $object = $this->entityManager->getReference($metadata->name, $identity);
-                static::$referenceRepository->setReference($innerReference, $object);
+                static::$referenceRepository->setReference($reference, $object);
             } else {
                 $id = $object->getId();
                 $object = $id !== null ? $this->entityManager->find($class, $id) : null;

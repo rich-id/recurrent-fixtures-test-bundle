@@ -9,7 +9,7 @@ use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureReferenceNotFound;
 use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Repository\DummyEntityRepository;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\TestCase\TestCase;
 
 /**
@@ -26,8 +26,8 @@ use RichCongress\WebTestBundle\TestCase\TestCase;
  * @covers \RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerAlreadyInitialized
  * @covers \RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerNotInitialized
  * @covers \RichCongress\RecurrentFixturesTestBundle\Exception\FixtureReferenceNotFound
- * @TestConfig("fixtures")
  */
+#[TestConfig('fixtures')]
 final class FixtureManagerTest extends TestCase
 {
     /** @var FixtureManager */

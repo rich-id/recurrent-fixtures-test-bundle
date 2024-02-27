@@ -11,16 +11,16 @@ use RichCongress\RecurrentFixturesTestBundle\TestCase\TestCase;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyUser;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Stubs\TokenStorage;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
- * @TestConfig("fixtures")
- *
  * @covers \RichCongress\RecurrentFixturesTestBundle\TestAuthentication\TestAuthenticationManager
  * @covers \RichCongress\RecurrentFixturesTestBundle\TestAuthentication\Authenticator\MainSecurityAuthenticator
  */
+#[TestConfig('fixtures')]
 final class TestAuthenticationTest extends TestCase
 {
     public function testAuthenticateNotSupported(): void
@@ -35,7 +35,6 @@ final class TestAuthenticationTest extends TestCase
     {
         $authenticator = new MainSecurityAuthenticator(
             $this->getService(FixtureManager::class),
-            $this->getService(SessionInterface::class)
         );
 
         $this->expectException(ServiceNotFound::class);
@@ -65,11 +64,13 @@ final class TestAuthenticationTest extends TestCase
         self::assertSame(['ROLE_DUMMY_USER'], $token->getRoleNames());
         self::assertInstanceOf(DummyUser::class, $token->getUser());
 
-        $session = $this->getService(SessionInterface::class);
-        self::assertNotNull($session->get('_security_main'));
-
+        $session = $this->getService('session.factory')->createSession();
         $cookieJar = $this->getClient()->getBrowser()->getCookieJar();
         $cookie = $cookieJar->get($session->getName());
         self::assertNotNull($cookie);
+
+        $session->setId($cookie->getValue());
+        self::assertNotNull($session->get('_security_main'));
+
     }
 }

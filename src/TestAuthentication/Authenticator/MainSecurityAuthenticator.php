@@ -6,34 +6,30 @@ use RichCongress\RecurrentFixturesTestBundle\Exception\AuthenticationBadRoleCoun
 use RichCongress\RecurrentFixturesTestBundle\Exception\AuthenticationTypeFailure;
 use RichCongress\RecurrentFixturesTestBundle\Exception\ServiceNotFound;
 use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager;
+use RichCongress\WebTestBundle\TestCase\TestTrait\WithSessionTrait;
 use RichCongress\WebTestBundle\WebTest\Client;
-use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class MainSecurityAuthenticator implements TestAuthenticatorInterface
 {
+    use WithSessionTrait;
+
     /** @var string */
     protected static $sessionAttribute = '_security_main';
 
     /** @var FixtureManager */
     protected $fixturesManager;
 
-    /** @var RequestStack */
-    protected $requestStack;
-
     /** @var TokenStorageInterface|null */
     protected $tokenStorage;
 
     public function __construct(
         FixtureManager $fixtureManager,
-        RequestStack $requestStack,
         TokenStorageInterface $tokenStorage = null
     ) {
         $this->fixturesManager = $fixtureManager;
-        $this->requestStack = $requestStack;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -61,13 +57,9 @@ class MainSecurityAuthenticator implements TestAuthenticatorInterface
         $token = new UsernamePasswordToken($user, 'main', $user->getRoles());
         $this->tokenStorage->setToken($token);
 
-        $session = $this->requestStack->getSession();
-
-        $session->set(static::$sessionAttribute, \serialize($token));
-        $session->save();
-
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $client->getBrowser()->getCookieJar()->set($cookie);
+        $this->withSession($client,
+            fn ($session) => $session->set(static::$sessionAttribute, \serialize($token))
+        );
     }
 
     public function deauthenticate(Client $client, ?string $class, ?string $reference): void

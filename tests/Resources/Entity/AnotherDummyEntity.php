@@ -3,6 +3,7 @@
 namespace RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
 
 /**
  * Class Another\DummyEntity
@@ -10,28 +11,19 @@ use Doctrine\ORM\Mapping as ORM;
  * @package    RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity
  * @author     Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright  2014 - 2021 RichCongress (https://www.richcongress.com)
- *
- * @ORM\Entity
- * @ORM\Table(name="another_dummy_entity")
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'another_dummy_entity')]
 class AnotherDummyEntity
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="id", options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    private int $id;
 
-    /**
-     * @var DummyEntity
-     *
-     * @ORM\OneToOne(targetEntity="RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity")
-     * @ORM\JoinColumn(name="dummy_entity_id", referencedColumnName="id", unique=false, onDelete="SET NULL")
-     */
-    private $dummyEntity;
+    #[ORM\OneToOne(targetEntity: DummyEntity::class)]
+    #[ORM\JoinColumn(name: 'dummy_entity_id', referencedColumnName: 'id', unique: false, onDelete: 'SET NULL')]
+    private DummyEntity $dummyEntity;
 
     public function getId(): ?int
     {

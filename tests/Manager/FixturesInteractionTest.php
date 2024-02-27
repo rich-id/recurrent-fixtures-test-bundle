@@ -5,7 +5,7 @@ namespace RichCongress\RecurrentFixturesTestBundle\Tests\Manager;
 use RichCongress\RecurrentFixturesTestBundle\TestCase\TestCase;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\AnotherDummyEntity;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 
 /**
  * Class FixturesInteractionTest
@@ -15,8 +15,8 @@ use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
  * @copyright  2014 - 2021 RichID (https://www.rich-id.fr)
  *
  * @covers \RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager
- * @TestConfig("fixtures")
  */
+#[TestConfig('fixtures')]
 final class FixturesInteractionTest extends TestCase
 {
     public function testEntityExistenceInDatabase(): void

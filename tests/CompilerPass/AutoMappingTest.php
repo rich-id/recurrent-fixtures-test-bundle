@@ -4,7 +4,7 @@ namespace RichCongress\RecurrentFixturesTestBundle\Tests\CompilerPass;
 
 use RichCongress\RecurrentFixturesTestBundle\TestCase\TestCase;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyUser;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 
 
 /**
@@ -12,9 +12,7 @@ use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
  */
 class AutoMappingTest extends TestCase
 {
-    /**
-     * @TestConfig("fixtures")
-     */
+    #[TestConfig('fixtures')]
     public function testCanPersistWithFixturesDatabase(): void
     {
         $user = new DummyUser();
@@ -24,9 +22,7 @@ class AutoMappingTest extends TestCase
         self::assertEquals(2, $user->getId());
     }
 
-    /**
-     * @TestConfig("kernel")
-     */
+    #[TestConfig('kernel')]
     public function testCanPersistWithEmptyDatabase(): void
     {
         $user = new DummyUser();

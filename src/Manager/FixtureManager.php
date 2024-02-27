@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use RichCongress\RecurrentFixturesTestBundle\DataFixture\DataFixtureInterface;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureClassNotFound;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureReferenceNotFound;
-use RichCongress\RecurrentFixturesTestBundle\Helper\ReferenceNameHelper;
 use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -77,22 +76,22 @@ class FixtureManager extends AbstractORMFixtureManager
 
     protected function getClosestReference(string $class, string $reference): ?string
     {
-        $objectReferences = array_keys(static::$referenceRepository->getReferences());
+        $objectReferencesByClass = static::$referenceRepository->getReferencesByClass();
         $matchReference = null;
         $matchDistance = null;
 
-        foreach ($objectReferences as $objectReference) {
-            [$objectClass, $objectInnerReference] = ReferenceNameHelper::reverse($objectReference);
+        foreach ($objectReferencesByClass as $objectClass => $objectReferences) {
+            foreach ($objectReferences as $objectReference => $object) {
+                if ($objectClass !== $class) {
+                    continue;
+                }
 
-            if ($objectClass !== $class) {
-                continue;
-            }
+                $distance = levenshtein($reference, (string) $objectReference);
 
-            $distance = levenshtein($reference, $objectInnerReference);
-
-            if ($matchDistance === null || $distance < $matchDistance) {
-                $matchDistance = $distance;
-                $matchReference = $objectInnerReference;
+                if ($matchDistance === null || $distance < $matchDistance) {
+                    $matchDistance = $distance;
+                    $matchReference = $objectReference;
+                }
             }
         }
 

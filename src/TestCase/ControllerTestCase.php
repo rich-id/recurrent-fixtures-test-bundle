@@ -2,7 +2,7 @@
 
 namespace RichCongress\RecurrentFixturesTestBundle\TestCase;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\TestCase\TestTrait\ControllerTestUtilitiesTrait;
 use RichCongress\WebTestBundle\TestCase\TestTrait\WebTestAssertionsTrait;
 
@@ -12,9 +12,8 @@ use RichCongress\WebTestBundle\TestCase\TestTrait\WebTestAssertionsTrait;
  * @package    RichCongress\RecurrentFixturesTestBundle\TestCase
  * @author     Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright  2014 - 2021 RichCongress (https://www.richcongress.com)
- *
- * @TestConfig("fixtures")
  */
+#[TestConfig('fixtures')]
 abstract class ControllerTestCase extends TestCase
 {
     use ControllerTestUtilitiesTrait;

@@ -3,5 +3,6 @@ framework:
     default_locale: 'fr_FR'
     test: true
     session:
-        storage_id: session.storage.mock_file
+        handler_id: ~
+        storage_factory_id: session.storage.factory.mock_file
         name: MOCKSESSION

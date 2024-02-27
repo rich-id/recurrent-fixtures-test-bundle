@@ -3,6 +3,8 @@
     "description": "A magic bundle",
     "type": "symfony-bundle",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "RichCongress",
@@ -16,16 +18,17 @@
         "issues": "https://github.com/richcongress/recurrent-fixtures-test-bundle/issues"
     },
     "require": {
-        "php": "^7.1 || ^8.0",
-        "doctrine/dbal": "^2.3 || ^3.0",
+        "php": "^8.1",
+        "doctrine/dbal": "^3.0 || ^4.0",
+        "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "richcongress/bundle-toolbox": "*",
-        "richcongress/fixture-test": "^0.1",
-        "richcongress/web-test-bundle": "^0.1"
+        "richcongress/fixture-test": "v0.2.x-dev",
+        "richcongress/web-test-bundle": "v0.2.x-dev"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "symfony/security-bundle": "^5.0"
+        "symfony/security-bundle": "^5.0 || ^6.0 || ^7.0"
     },
     "autoload": {
         "psr-4": {

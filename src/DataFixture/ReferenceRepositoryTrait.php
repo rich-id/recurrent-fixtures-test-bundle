@@ -3,7 +3,6 @@
 namespace RichCongress\RecurrentFixturesTestBundle\DataFixture;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
-use RichCongress\RecurrentFixturesTestBundle\Helper\ReferenceNameHelper;
 
 /**
  * Trait ReferenceRepositoryTrait
@@ -24,9 +23,7 @@ trait ReferenceRepositoryTrait
 
     public function getReference(string $class, string $reference)
     {
-        $innerReference = ReferenceNameHelper::transform($class, $reference);
-
-        return $this->referenceRepository->getReference($innerReference);
+        return $this->referenceRepository->getReference($reference, $class);
     }
 
     /**
@@ -34,20 +31,16 @@ trait ReferenceRepositoryTrait
      */
     public function setReference(string $reference, $object): void
     {
-        $innerReference = ReferenceNameHelper::transform($object, $reference);
-        $this->referenceRepository->setReference($innerReference, $object);
+        $this->referenceRepository->setReference($reference, $object);
     }
 
     public function addReference(string $reference, $object): void
     {
-        $innerReference = ReferenceNameHelper::transform($object, $reference);
-        $this->referenceRepository->addReference($innerReference, $object);
+        $this->referenceRepository->addReference($reference, $object);
     }
 
     public function hasReference(string $class, string $reference): bool
     {
-        $innerReference = ReferenceNameHelper::transform($class, $reference);
-
-        return $this->referenceRepository->hasReference($innerReference);
+        return $this->referenceRepository->hasReference($reference, $class);
     }
 }

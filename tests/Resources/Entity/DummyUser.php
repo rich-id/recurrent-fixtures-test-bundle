@@ -5,20 +5,14 @@ namespace RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="dummy_user")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'dummy_user')]
 class DummyUser implements UserInterface
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="id", options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    private int $id;
 
     public function getId(): int
     {

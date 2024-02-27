@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\SharedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use RichCongress\FixtureTestBundle\Generator\GeneratorInterface;
 use RichCongress\FixtureTestBundle\Generator\StaticGenerator;
+use Symfony\Contracts\Service\Attribute\Required;
 
 /**
  * Class AbstractFixture
@@ -24,7 +25,7 @@ abstract class AbstractFixture implements DataFixtureInterface, SharedFixtureInt
     /** @var GeneratorInterface|null */
     protected $fixtureGenerator;
 
-    /** @required */
+    #[Required]
     public function setFixtureGenerator(GeneratorInterface $generator = null): void
     {
         $this->fixtureGenerator = $generator;

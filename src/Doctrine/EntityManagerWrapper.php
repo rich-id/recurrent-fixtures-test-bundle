@@ -2,8 +2,24 @@
 
 namespace RichCongress\RecurrentFixturesTestBundle\Doctrine;
 
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\LockMode;
+use Doctrine\ORM\Cache;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\ClassMetadataFactory;
+use Doctrine\ORM\NativeQuery;
+use Doctrine\ORM\Proxy\ProxyFactory;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\FilterCollection;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\UnitOfWork;
 use Doctrine\Persistence\ManagerRegistry;
 use RichCongress\RecurrentFixturesTestBundle\Exception\BadDoctrineConfigurationException;
 use RichCongress\RecurrentFixturesTestBundle\TestCase\Internal\FixtureTestCase;
@@ -32,13 +48,13 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function getConnection()
+    public function getConnection(): Connection
     {
         return $this->getEntityManager()->getConnection();
     }
 
     /** {@inheritdoc} */
-    public function getExpressionBuilder()
+    public function getExpressionBuilder(): Expr
     {
         return $this->getEntityManager()->getExpressionBuilder();
     }
@@ -68,7 +84,7 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function createQuery($dql = '')
+    public function createQuery($dql = ''): Query
     {
         return $this->getEntityManager()->createQuery($dql);
     }
@@ -80,7 +96,7 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function createNativeQuery($sql, ResultSetMapping $rsm)
+    public function createNativeQuery($sql, ResultSetMapping $rsm): NativeQuery
     {
         return $this->getEntityManager()->createNativeQuery($sql, $rsm);
     }
@@ -92,13 +108,13 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function createQueryBuilder()
+    public function createQueryBuilder(): QueryBuilder
     {
         return $this->getEntityManager()->createQueryBuilder();
     }
 
     /** {@inheritdoc} */
-    public function getReference($entityName, $id)
+    public function getReference($entityName, $id): ?object
     {
         return $this->getEntityManager()->getReference($entityName, $id);
     }
@@ -128,7 +144,7 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function find($className, $id, $lockMode = null, $lockVersion = null)
+    public function find($className, $id, $lockMode = null, $lockVersion = null): ?object
     {
         return $this->getEntityManager()->find($className, $id, $lockMode, $lockVersion);
     }
@@ -140,25 +156,25 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function getEventManager()
+    public function getEventManager(): EventManager
     {
         return $this->getEntityManager()->getEventManager();
     }
 
     /** {@inheritdoc} */
-    public function getConfiguration()
+    public function getConfiguration(): Configuration
     {
         return $this->getEntityManager()->getConfiguration();
     }
 
     /** {@inheritdoc} */
-    public function isOpen()
+    public function isOpen(): bool
     {
         return $this->getEntityManager()->isOpen();
     }
 
     /** {@inheritdoc} */
-    public function getUnitOfWork()
+    public function getUnitOfWork(): UnitOfWork
     {
         return $this->getEntityManager()->getUnitOfWork();
     }
@@ -170,49 +186,49 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function newHydrator($hydrationMode)
+    public function newHydrator($hydrationMode): AbstractHydrator
     {
         return $this->getEntityManager()->newHydrator($hydrationMode);
     }
 
     /** {@inheritdoc} */
-    public function getProxyFactory()
+    public function getProxyFactory(): ProxyFactory
     {
         return $this->getEntityManager()->getProxyFactory();
     }
 
     /** {@inheritdoc} */
-    public function getFilters()
+    public function getFilters(): FilterCollection
     {
         return $this->getEntityManager()->getFilters();
     }
 
     /** {@inheritdoc} */
-    public function isFiltersStateClean()
+    public function isFiltersStateClean(): bool
     {
         return $this->getEntityManager()->isFiltersStateClean();
     }
 
     /** {@inheritdoc} */
-    public function hasFilters()
+    public function hasFilters(): bool
     {
         return $this->getEntityManager()->hasFilters();
     }
 
     /** {@inheritdoc} */
-    public function getCache()
+    public function getCache(): ?Cache
     {
         return $this->getEntityManager()->getCache();
     }
 
     /** {@inheritdoc} */
-    public function getRepository($className)
+    public function getRepository($className): EntityRepository
     {
         return $this->getEntityManager()->getRepository($className);
     }
 
     /** {@inheritdoc} */
-    public function getClassMetadata($className)
+    public function getClassMetadata($className): ClassMetadata
     {
         return $this->getEntityManager()->getClassMetadata($className);
     }
@@ -248,9 +264,9 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function refresh($object)
+    public function refresh($object, LockMode|int|null $lockMode = null): void
     {
-        return $this->getEntityManager()->refresh($object);
+        $this->getEntityManager()->refresh($object, $lockMode);
     }
 
     /** {@inheritdoc} */
@@ -266,8 +282,13 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function getMetadataFactory()
+    public function getMetadataFactory(): ClassMetadataFactory
     {
         return $this->getEntityManager()->getMetadataFactory();
+    }
+
+    public function wrapInTransaction(callable $func): mixed
+    {
+        return $this->getEntityManager()->wrapInTransaction($func);
     }
 }

@@ -33,14 +33,14 @@ doctrine:
         default_entity_manager: default
         entity_managers:
             default:
-                naming_strategy: doctrine.orm.naming_strategy.underscore
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
                 auto_mapping: true
                 connection: default
                 mappings:
                     # Your mappings
             empty_database:
                 connection: empty_database
-                naming_strategy: doctrine.orm.naming_strategy.underscore
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
                 auto_mapping: false
                 mappings:
                     # A copy of the same mappings from above

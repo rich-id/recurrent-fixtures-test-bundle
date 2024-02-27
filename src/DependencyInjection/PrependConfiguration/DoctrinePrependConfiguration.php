@@ -19,18 +19,20 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                     'default_connection' => 'default',
                     'connections'        => [
                         'default'        => [
-                            'driver' => 'pdo_sqlite',
-                            'user'   => 'test',
-                            'path'   => static::DEFAULT_DB_PATH,
-                            'url'    => null,
-                            'memory' => false,
+                            'driver'         => 'pdo_sqlite',
+                            'user'           => 'test',
+                            'path'           => static::DEFAULT_DB_PATH,
+                            'url'            => null,
+                            'memory'         => false,
+                            'use_savepoints' => true,
                         ],
                         'empty_database' => [
-                            'driver' => 'pdo_sqlite',
-                            'user'   => 'test',
-                            'path'   => str_replace('.db', '.empty.db', static::DEFAULT_DB_PATH),
-                            'url'    => null,
-                            'memory' => false,
+                            'driver'         => 'pdo_sqlite',
+                            'user'           => 'test',
+                            'path'           => str_replace('.db', '.empty.db', static::DEFAULT_DB_PATH),
+                            'url'            => null,
+                            'memory'         => false,
+                            'use_savepoints' => true,
                         ],
                     ],
                 ],
@@ -38,8 +40,9 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                     'default_entity_manager' => 'default',
                     'entity_managers'        => [
                         'default'        => [
-                            'connection'   => 'default',
-                            'auto_mapping' => true,
+                            'connection'                   => 'default',
+                            'auto_mapping'                 => true,
+                            'report_fields_where_declared' => true,
                             'dql'                    => [
                                 'string_functions' => [
                                     'REGEXP'         => Regexp::class,
@@ -48,8 +51,9 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                             ],
                         ],
                         'empty_database' => [
-                            'connection' => 'empty_database',
-                            'dql'                    => [
+                            'connection'                   => 'empty_database',
+                            'report_fields_where_declared' => true,
+                            'dql'                          => [
                                 'string_functions' => [
                                     'REGEXP'         => Regexp::class,
                                     'REGEXP_REPLACE' => RegexReplace::class,
