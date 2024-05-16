@@ -55,10 +55,7 @@ class FixtureManager extends AbstractORMFixtureManager
 
         $this->entityManager->flush();
 
-        if (StaticDriver::isInTransaction()) {
-            StaticDriver::commit();
-            StaticDriver::beginTransaction();
-        }
+        StaticDriver::forceCommit();
     }
 
     public function getReference(string $class, string $reference)

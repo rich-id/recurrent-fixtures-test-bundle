@@ -2619,12 +2619,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rich-id/web-test-bundle.git",
-                "reference": "c6fea31d1312cafb81e70730c4d0b361d5e7aa35"
+                "reference": "6c95e0dccf9a7a1f4294455e5be575a428cb2087"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rich-id/web-test-bundle/zipball/c6fea31d1312cafb81e70730c4d0b361d5e7aa35",
-                "reference": "c6fea31d1312cafb81e70730c4d0b361d5e7aa35",
+                "url": "https://api.github.com/repos/rich-id/web-test-bundle/zipball/6c95e0dccf9a7a1f4294455e5be575a428cb2087",
+                "reference": "6c95e0dccf9a7a1f4294455e5be575a428cb2087",
                 "shasum": ""
             },
             "require": {
@@ -2669,7 +2669,7 @@
                 "issues": "https://github.com/richcongress/web-test-bundle/issues",
                 "source": "https://github.com/richcongress/web-test-bundle"
             },
-            "time": "2024-03-11T13:42:42+00:00"
+            "time": "2024-05-16T15:00:43+00:00"
         },
         {
             "name": "sebastian/cli-parser",
