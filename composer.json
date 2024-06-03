@@ -23,12 +23,12 @@
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "richcongress/bundle-toolbox": "*",
-        "richcongress/fixture-test": "v0.2.x-dev",
-        "richcongress/web-test-bundle": "v0.2.x-dev"
+        "richcongress/fixture-test": "^0.2",
+        "richcongress/web-test-bundle": "^0.2"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "symfony/security-bundle": "^5.0 || ^6.0 || ^7.0"
+        "symfony/security-bundle": "^6.0 || ^7.0"
     },
     "autoload": {
         "psr-4": {

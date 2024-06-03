@@ -13,7 +13,7 @@
 The RichCongress Recurrent Fixtures Test Bundle
 =======================================
 
-This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 6.0+ and PHP 8.1+.
 
 [![Package version](https://img.shields.io/packagist/v/richcongress/recurrent-fixtures-test-bundle)](https://packagist.org/packages/richcongress/recurrent-fixtures-test-bundle)
 [![Actions Status](https://github.com/richcongress/recurrent-fixtures-test-bundle/workflows/Tests/badge.svg)](https://github.com/t/richcongress/recurrent-fixtures-test-bundle/actions)
@@ -41,7 +41,7 @@ Quick showcase
 
 # 1. Installation
 
-This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 6.0+ and PHP 8.1+.
 
 ```bash
 composer require richcongress/recurrent-fixtures-test-bundle
