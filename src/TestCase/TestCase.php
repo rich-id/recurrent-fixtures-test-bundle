@@ -36,6 +36,13 @@ abstract class TestCase extends \RichCongress\WebTestBundle\TestCase\TestCase
         parent::tearDownTestCase();
     }
 
+    /**
+     * @template T of object
+     *
+     * @param class-string<T> $class
+     *
+     * @return T
+     */
     public function getReference(string $class, string $reference)
     {
         return $this->fixtureTestCase->getReference($class, $reference);
