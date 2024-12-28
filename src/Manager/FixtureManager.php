@@ -20,19 +20,82 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @author     Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright  2014 - 2021 RichCongress (https://www.richcongress.com)
  */
-class FixtureManager extends AbstractORMFixtureManager
+class FixtureManager
 {
-    /** @var DataFixtureInterface[] */
-    protected $dataFixtures = [];
+    /** @var EntityManagerInterface */
+    protected $entityManager;
 
     /** @var SymfonyFixturesLoader */
     protected $fixturesLoader;
 
+    /** @var DataFixtureInterface[] */
+    protected $dataFixtures = [];
+
+    /** @var ReferenceRepository|null */
+    public static $referenceRepository;
+
     public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container)
     {
-        parent::__construct($entityManager);
-
+        $this->entityManager = $entityManager;
         $this->fixturesLoader = new SymfonyFixturesLoader($container);
+    }
+
+    public static function isInitialized(): bool
+    {
+        return static::$referenceRepository !== null;
+    }
+
+    public function init(): void
+    {
+        if ($this->isInitialized()) {
+            throw new FixtureManagerAlreadyInitialized();
+        }
+
+        static::$referenceRepository = new ReferenceRepository($this->entityManager);
+        $this->initReferenceRepository(static::$referenceRepository);
+    }
+
+    public function reset(): void
+    {
+        static::$referenceRepository = null;
+    }
+
+    public function hasReference(string $class, string $reference): bool
+    {
+        $this->checkInitialized();
+
+        return static::$referenceRepository->hasReference($reference, $class);
+    }
+
+    public function getReference(string $class, string $reference)
+    {
+        if (!$this->hasReference($class, $reference)) {
+            $closestReference = $this->getClosestReference($class, $reference);
+
+            throw $closestReference
+                ? new FixtureReferenceNotFound($class, $reference, $closestReference)
+                : new FixtureClassNotFound($class);
+        }
+
+        if (!$this->hasReference($class, $reference)) {
+            return null;
+        }
+        
+        $object = static::$referenceRepository->getReference($reference, $class);
+        $identity = static::$referenceRepository->getIdentitiesByClass()[$class][$reference] ?? null;
+        $metadata = $this->entityManager->getClassMetadata($class);
+
+        if (!$this->entityManager->contains($object)) {
+            if ($identity !== null ) {
+                $object = $this->entityManager->getReference($metadata->name, $identity);
+                static::$referenceRepository->setReference($reference, $object);
+            } else {
+                $id = $object->getId();
+                $object = $id !== null ? $this->entityManager->find($class, $id) : null;
+            }
+        }
+
+        return $object;
     }
 
     public function setDataFixtures(array $dataFixtures): void
@@ -40,6 +103,13 @@ class FixtureManager extends AbstractORMFixtureManager
         foreach ($dataFixtures as $dataFixture) {
             $key = \get_class($dataFixture);
             $this->dataFixtures[$key] = $dataFixture;
+        }
+    }
+
+    protected function checkInitialized(): void
+    {
+        if (!$this->isInitialized()) {
+            throw new FixtureManagerNotInitialized();
         }
     }
 
@@ -56,19 +126,6 @@ class FixtureManager extends AbstractORMFixtureManager
         $this->entityManager->flush();
 
         StaticDriver::forceCommit();
-    }
-
-    public function getReference(string $class, string $reference)
-    {
-        if (!$this->hasReference($class, $reference)) {
-            $closestReference = $this->getClosestReference($class, $reference);
-
-            throw $closestReference
-                ? new FixtureReferenceNotFound($class, $reference, $closestReference)
-                : new FixtureClassNotFound($class);
-        }
-
-        return parent::getReference($class, $reference);
     }
 
     protected function getClosestReference(string $class, string $reference): ?string

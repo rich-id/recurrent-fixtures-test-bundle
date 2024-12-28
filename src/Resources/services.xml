@@ -10,7 +10,6 @@
         <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" >
             <argument key="$container" type="service" id="service_container" />
         </service>
-        <service id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManagerInterface" alias="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" public="true" />
         <service id="RichCongress\RecurrentFixturesTestBundle\TestAuthentication\TestAuthenticationManager" />
         <service id="RichCongress\RecurrentFixturesTestBundle\TestAuthentication\Authenticator\MainSecurityAuthenticator">
             <argument key="$fixtureManager" type="service" id="RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager" />

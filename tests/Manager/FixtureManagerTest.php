@@ -20,7 +20,6 @@ use RichCongress\WebTestBundle\TestCase\TestCase;
  * @copyright  2014 - 2021 RichCongress (https://www.richcongress.com)
  *
  * @covers \RichCongress\RecurrentFixturesTestBundle\DataFixture\AbstractFixture
- * @covers \RichCongress\RecurrentFixturesTestBundle\Manager\AbstractORMFixtureManager
  * @covers \RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager
  * @covers \RichCongress\RecurrentFixturesTestBundle\Exception\FixtureClassNotFound
  * @covers \RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerAlreadyInitialized

@@ -4,7 +4,7 @@ namespace RichCongress\RecurrentFixturesTestBundle\TestCase\Internal;
 
 use Psr\Container\ContainerInterface;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixturesNotInitialized;
-use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManagerInterface;
+use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager;
 use RichCongress\TestFramework\TestConfiguration\TestConfiguration;
 
 /**
@@ -32,10 +32,8 @@ final class FixtureTestCase
             return;
         }
 
-        $fixtureManager = $this->getFixtureManager();
-
-        if (!$fixtureManager->isInitialized()) {
-            $fixtureManager->init();
+        if (!FixtureManager::isInitialized()) {
+            $this->getFixtureManager()->init();
         }
     }
 
@@ -63,12 +61,12 @@ final class FixtureTestCase
         return false;
     }
 
-    private function getFixtureManager(): FixtureManagerInterface
+    private function getFixtureManager(): FixtureManager
     {
         if ($this->container === null || !self::isEnabled()) {
             throw new FixturesNotInitialized();
         }
 
-        return $this->container->get(FixtureManagerInterface::class);
+        return $this->container->get(FixtureManager::class);
     }
 }

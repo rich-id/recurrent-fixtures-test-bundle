@@ -3,7 +3,7 @@
 namespace RichCongress\RecurrentFixturesTestBundle\Tests\TestCase;
 
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixturesNotInitialized;
-use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManagerInterface;
+use RichCongress\RecurrentFixturesTestBundle\Manager\FixtureManager;
 use RichCongress\RecurrentFixturesTestBundle\TestCase\TestCase;
 use RichCongress\RecurrentFixturesTestBundle\Tests\Resources\Entity\DummyEntity;
 use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
@@ -44,7 +44,7 @@ final class TestCaseTest extends TestCase
     #[TestConfig('kernel')]
     public function testSideEffect(): void
     {
-        $fixtureManager = $this->getService(FixtureManagerInterface::class);
+        $fixtureManager = $this->getService(FixtureManager::class);
         $fixtureManager->reset();
         self::assertFalse($fixtureManager->isInitialized());
     }
