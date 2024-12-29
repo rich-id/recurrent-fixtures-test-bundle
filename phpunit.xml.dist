@@ -7,7 +7,7 @@
          bootstrap="vendor/autoload.php"
          failOnWarning="true"
          failOnRisky="true"
-         forceCoversAnnotation="true"
+         requireCoverageMetadata="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -23,9 +23,9 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
+    <source>
         <include>
-            <directory suffix=".php">src</directory>
+            <directory>src</directory>
         </include>
 
         <exclude>
@@ -33,13 +33,10 @@
             <directory>src/Resources</directory>
             <file>src/RichCongressRecurrentFixturesTestBundle.php</file>
         </exclude>
-    </coverage>
+    </source>
 
     <extensions>
-        <extension class="RichCongress\TestFramework\PHPUnitExtension">
-            <arguments>
-                <string>RichCongress\WebTestBundle\TestHook</string>
-            </arguments>
-        </extension>
+        <bootstrap class="RichCongress\TestFramework\PHPUnitExtension"/>
+        <bootstrap class="RichCongress\WebTestBundle\PHPUnitExtension"/>
     </extensions>
 </phpunit>

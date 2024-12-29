@@ -9,6 +9,8 @@ use Doctrine\Common\DataFixtures\SharedFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use RichCongress\RecurrentFixturesTestBundle\DataFixture\DataFixtureInterface;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureClassNotFound;
+use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerAlreadyInitialized;
+use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureManagerNotInitialized;
 use RichCongress\RecurrentFixturesTestBundle\Exception\FixtureReferenceNotFound;
 use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
