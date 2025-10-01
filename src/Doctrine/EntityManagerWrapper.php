@@ -252,15 +252,15 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function clear($objectName = null)
+    public function clear(): void
     {
-        return $this->getEntityManager()->clear($objectName);
+        $this->getEntityManager()->clear();
     }
 
     /** {@inheritdoc} */
-    public function detach($object)
+    public function detach($object): void
     {
-        return $this->getEntityManager()->detach($object);
+        $this->getEntityManager()->detach($object);
     }
 
     /** {@inheritdoc} */
@@ -270,13 +270,19 @@ final class EntityManagerWrapper implements EntityManagerInterface
     }
 
     /** {@inheritdoc} */
-    public function initializeObject($obj)
+    public function initializeObject($obj): void
     {
-        return $this->getEntityManager()->initializeObject($obj);
+        $this->getEntityManager()->initializeObject($obj);
     }
 
     /** {@inheritdoc} */
-    public function contains($object)
+    public function isUninitializedObject(mixed $value): bool
+    {
+        return $this->getEntityManager()->isUninitializedObject($value);
+    }
+
+    /** {@inheritdoc} */
+    public function contains(object $object): bool
     {
         return $this->getEntityManager()->contains($object);
     }
