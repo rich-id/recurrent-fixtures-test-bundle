@@ -26,7 +26,7 @@ abstract class AbstractFixture implements DataFixtureInterface, SharedFixtureInt
     protected $fixtureGenerator;
 
     #[Required]
-    public function setFixtureGenerator(GeneratorInterface $generator = null): void
+    public function setFixtureGenerator(?GeneratorInterface $generator = null): void
     {
         $this->fixtureGenerator = $generator;
     }

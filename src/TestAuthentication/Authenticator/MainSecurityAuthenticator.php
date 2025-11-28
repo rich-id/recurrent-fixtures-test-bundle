@@ -27,7 +27,7 @@ class MainSecurityAuthenticator implements TestAuthenticatorInterface
 
     public function __construct(
         FixtureManager $fixtureManager,
-        TokenStorageInterface $tokenStorage = null
+        ?TokenStorageInterface $tokenStorage = null
     ) {
         $this->fixturesManager = $fixtureManager;
         $this->tokenStorage = $tokenStorage;
