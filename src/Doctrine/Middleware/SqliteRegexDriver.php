@@ -13,7 +13,7 @@ class SqliteRegexDriver extends AbstractDriverMiddleware
         $connection = parent::connect($params);
         $nativeConnection = $connection->getNativeConnection();
 
-        $nativeConnection->sqliteCreateFunction(
+        $nativeConnection->createFunction(
             'REGEXP',
             static function (string $regex, string $value): int {
 
@@ -21,7 +21,7 @@ class SqliteRegexDriver extends AbstractDriverMiddleware
             }
         );
 
-        $nativeConnection->sqliteCreateFunction(
+        $nativeConnection->createFunction(
             'REGEXP_REPLACE',
             static function (string $value, string $regex, string $replace): string {
                 return preg_replace('/' . $regex . '/u', $replace, $value);
