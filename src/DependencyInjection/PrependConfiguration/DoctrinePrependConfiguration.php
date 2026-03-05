@@ -24,7 +24,6 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                             'path'           => static::DEFAULT_DB_PATH,
                             'url'            => null,
                             'memory'         => false,
-                            'use_savepoints' => true,
                         ],
                         'empty_database' => [
                             'driver'         => 'pdo_sqlite',
@@ -32,7 +31,6 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                             'path'           => str_replace('.db', '.empty.db', static::DEFAULT_DB_PATH),
                             'url'            => null,
                             'memory'         => false,
-                            'use_savepoints' => true,
                         ],
                     ],
                 ],
@@ -42,7 +40,6 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                         'default'        => [
                             'connection'                   => 'default',
                             'auto_mapping'                 => true,
-                            'report_fields_where_declared' => true,
                             'dql'                    => [
                                 'string_functions' => [
                                     'REGEXP'         => Regexp::class,
@@ -52,7 +49,6 @@ class DoctrinePrependConfiguration extends AbstractPrependConfiguration
                         ],
                         'empty_database' => [
                             'connection'                   => 'empty_database',
-                            'report_fields_where_declared' => true,
                             'dql'                          => [
                                 'string_functions' => [
                                     'REGEXP'         => Regexp::class,

@@ -29,7 +29,6 @@ doctrine:
                 url: null
                 memory: true
     orm:
-        auto_generate_proxy_classes: true
         default_entity_manager: default
         entity_managers:
             default:
